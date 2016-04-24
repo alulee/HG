@@ -1,17 +1,16 @@
 using Nop.Data.Mapping;
-using HGenealogy.Domain;
+using HGenealogy.Domain.HGFamilyMembers;
 
-namespace HGenealogy
+namespace HGenealogy.Mapping.FamilyMembes
 {
-    public partial class HGFamilyMemberMap : NopEntityTypeConfiguration<HGFamilyMember>
+    public partial class FamilyMemberMap : NopEntityTypeConfiguration<FamilyMember>
     {
-        public HGFamilyMemberMap()
+        public FamilyMemberMap()
         {
             this.ToTable("HGFamilyMember");
             this.HasKey(c => c.Id);            
             this.Property(c => c.FamilyName).HasMaxLength(30);
             this.Property(c => c.GivenName).IsRequired().HasMaxLength(50);
-            this.Property(c => c.Description);
         }
     }
 }

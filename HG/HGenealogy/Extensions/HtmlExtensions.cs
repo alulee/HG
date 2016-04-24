@@ -237,7 +237,7 @@ namespace HGenealogy.Extensions
 
             //static cache manager
             var cacheManager = EngineContext.Current.ContainerManager.Resolve<ICacheManager>("nop_cache_static");
-            var cacheKey = string.Format(ModelCacheEventConsumer.TOPIC_SENAME_BY_SYSTEMNAME, systemName, workContext.WorkingLanguage.Id, storeContext.CurrentStore.Id);
+            var cacheKey = string.Format(HGModelCacheEventConsumer.TOPIC_SENAME_BY_SYSTEMNAME, systemName, workContext.WorkingLanguage.Id, storeContext.CurrentStore.Id);
             var cachedSeName = cacheManager.Get(cacheKey, () =>
             {
                 var topicService = EngineContext.Current.Resolve<ITopicService>();

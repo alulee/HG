@@ -6526,3 +6526,17 @@ pre {
 }
 
 }
+
+
+/*** HG ***/
+
+.overview .familymember-name {
+	margin: 0 0 25px;
+	border-bottom: 1px solid #ddd;
+    padding: 0 0 10px;
+}
+.overview .familymember-name h1 {
+	font-size: 30px;
+    font-weight: normal;
+}
+ 

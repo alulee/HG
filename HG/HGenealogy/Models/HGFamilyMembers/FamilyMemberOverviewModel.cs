@@ -2,11 +2,11 @@
 using Nop.Web.Framework.Mvc;
 using HGenealogy.Models.Media;
 
-namespace HGenealogy.Models.HGFamilyMember
+namespace HGenealogy.Models.HGFamilyMembers
 {
-    public partial class HGFamilyMemberOverviewModel : BaseNopEntityModel
+    public partial class FamilyMemberOverviewModel : BaseNopEntityModel
     {
-        public HGFamilyMemberOverviewModel()
+        public FamilyMemberOverviewModel()
         {
             DefaultPictureModel = new PictureModel();
         }

@@ -12,14 +12,15 @@ using Nop.Services.Localization;
 using Nop.Services.Seo;
 using HGenealogy.Models.HGPedigree;
 using HGenealogy.Models.Common;
+using HGenealogy.Models.HGFamilyMembers;
+using HGenealogy.Domain.HGFamilyMembers;
 using HGenealogy.Domain;
-using HGenealogy.Models.HGFamilyMember;
 
 namespace HGenealogy.Extensions
 {
     public static class MappingExtensions
     {
-        //HGPedigree
+        //Pedigree
         public static HGPedigreeMetaModel ToModel(this HGPedigreeMeta entity)
         {
             if (entity == null)
@@ -34,13 +35,13 @@ namespace HGenealogy.Extensions
             return model;
         }
 
-        //HGFamilyMember
-        public static HGFamilyMemberDetailsModel ToDetailsModel(this HGFamilyMember entity)
+        //FamilyMember
+        public static FamilyMemberDetailsModel ToDetailsModel(this FamilyMember entity)
         {
             if (entity == null)
                 return null;
 
-            var model = new HGFamilyMemberDetailsModel
+            var model = new FamilyMemberDetailsModel
             {
                 Id = entity.Id,
                 GivenName = entity.GetLocalized(x => x.GivenName),

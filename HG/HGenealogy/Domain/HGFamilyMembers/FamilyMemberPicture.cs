@@ -1,18 +1,19 @@
-
+using System;
 using Nop.Core;
 using Nop.Core.Domain.Media;
 
-namespace HGenealogy.Domain
+
+namespace HGenealogy.Domain.HGFamilyMembers
 {
     /// <summary>
-    /// Represents a HGFamilyMember picture mapping
+    /// Represents a FamilyMember picture mapping
     /// </summary>
-    public partial class HGFamilyMemberPicture : BaseEntity
+    public partial class FamilyMemberPicture : BaseEntity
     {
         /// <summary>
         /// Gets or sets the HGFamilyMember identifier
         /// </summary>
-        public int HGFamilyMemberId { get; set; }
+        public int FamilyMemberId { get; set; }
 
         /// <summary>
         /// Gets or sets the picture identifier
@@ -30,9 +31,19 @@ namespace HGenealogy.Domain
         public virtual Picture Picture { get; set; }
 
         /// <summary>
-        /// Gets the HGFamilyMember
+        /// Gets the FamilyMember
         /// </summary>
-        public virtual HGFamilyMember HGFamilyMember { get; set; }
+        public virtual FamilyMember FamilyMember { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date and time of instance creation
+        /// </summary>
+        public DateTime CreatedOnUtc { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date and time of instance update
+        /// </summary>
+        public DateTime UpdatedOnUtc { get; set; }  
     }
 
 }

@@ -6,12 +6,12 @@ using Nop.Core.Domain.Seo;
 using Nop.Core.Domain;
 using Nop.Core;
 
-namespace HGenealogy.Domain
+namespace HGenealogy.Domain.HGFamilyMembers
 {
     /// <summary>
-    /// Represents a HGFamilyMember
+    /// Represents a FamilyMember
     /// </summary>
-    public partial class HGFamilyMember : BaseEntity, ILocalizedEntity, ISlugSupported
+    public partial class FamilyMember : BaseEntity, ILocalizedEntity, ISlugSupported
     {       
         /// <summary>
         /// Gets or sets the FamilyName
@@ -29,9 +29,49 @@ namespace HGenealogy.Domain
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the picture identifier
+        /// Gets or sets the FatherMember identifier
         /// </summary>
-        public int PictureId { get; set; }
+        public int FatherMemberId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the MotherMember identifier
+        /// </summary>
+        public int MotherMemberId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the BirthDay
+        /// </summary>
+        public DateTime BirthDay { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Current Address identifier
+        /// </summary>
+        public int CurrentAddressId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Email
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets the MobilePhone
+        /// </summary>
+        public string MobilePhone { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Gender
+        /// </summary>
+        public string Gender { get; set; }
+
+        /// <summary>
+        /// Gets or sets the GenerationNo
+        /// </summary>
+        public int GenerationNo { get; set; }
+
+        /// <summary>
+        /// Gets or sets the JobDescription
+        /// </summary>
+        public string JobDescription { get; set; }
 
         /// <summary>
         /// Gets or sets the IsPublic

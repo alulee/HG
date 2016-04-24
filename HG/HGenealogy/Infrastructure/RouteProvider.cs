@@ -26,18 +26,28 @@ namespace HGenealogy.Infrastructure
             //HGFamilyMember
             routes.MapLocalizedRoute("FamilyMember",
                             "FamilyMember",
-                            new { controller = "HGFamilyMember", action = "Index" },
+                            new { controller = "HGFamilyMembers", action = "Index" },
+                            new[] { "HGenealogy.Controllers" });
+
+            routes.MapLocalizedRoute("FamilyMemberCreate",
+                            "FamilyMemberCreate",
+                            new { controller = "HGFamilyMembers", action = "Create" },
                             new[] { "HGenealogy.Controllers" });
 
             routes.MapLocalizedRoute("FamilyMemberOverview",
                             "FamilyMemberOverview",
-                            new { controller = "HGFamilyMember", action = "Overview" },
+                            new { controller = "HGFamilyMembers", action = "Overview" },
                             new[] { "HGenealogy.Controllers" });
 
             routes.MapLocalizedRoute("FamilyMemberDetails",
-                "FamilyMemberDetails",
-                new { controller = "HGFamilyMember", action = "FamilyMemberDetails" },
-                new[] { "HGenealogy.Controllers" });
+                            "FamilyMemberDetails",
+                            new { controller = "HGFamilyMembers", action = "FamilyMemberDetails" },
+                            new[] { "HGenealogy.Controllers" });
+
+            routes.MapLocalizedRoute("RelatedFamilyMembers",
+                            "RelatedFamilyMembers",
+                            new { controller = "HGFamilyMembers", action = "RelatedFamilyMembers" },
+                            new[] { "HGenealogy.Controllers" });
 
             //HGTest
             routes.MapLocalizedRoute("HGTest",

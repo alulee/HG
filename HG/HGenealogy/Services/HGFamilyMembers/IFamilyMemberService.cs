@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using Nop.Core;
 using Nop.Core.Domain.Media;
-using HGenealogy.Domain;
+using HGenealogy.Domain.HGFamilyMembers;
 
-namespace HGenealogy.Services
+namespace HGenealogy.Services.HGFamilyMembers
 {
     /// <summary>
     /// FamilyMember Service interface
     /// </summary>
-    public partial interface IHGFamilyMemberService
+    public partial interface IFamilyMemberService
     {
  
         /// <summary>
@@ -18,7 +18,7 @@ namespace HGenealogy.Services
         /// <param name="pageSize">Page size</param>
         /// <param name="showHidden">A value indicating whether to show hidden records</param>
         /// <returns>HGPedigrees</returns>
-        IPagedList<HGFamilyMember> GetAllHGFamilyMember(
+        IPagedList<FamilyMember> GetAllHGFamilyMember(
             int pageIndex = 0, int pageSize = int.MaxValue);
 
         /// <summary>
@@ -27,14 +27,27 @@ namespace HGenealogy.Services
         /// <param name="hgFamilyMemberId"></param>
         /// <param name="recordsToReturn"></param>
         /// <returns></returns>
-        IList<Picture> GetPicturesByHGFamilyMemberId(int hgFamilyMemberId, int recordsToReturn = 0);
+        IList<Picture> GetPicturesByFamilyMemberId(int hgFamilyMemberId, int recordsToReturn = 0);
 
         /// <summary>
-        /// 以 Id 取得家族成員 HGFamilyMember
+        /// 以 Id 取得家族成員 FamilyMember
         /// </summary>
         /// <param name="familyMemberId"></param>
         /// <returns></returns>
-        HGFamilyMember GetHGFamilyMemberById(int familyMemberId);
+        FamilyMember GetFamilyMemberById(int familyMemberId);
 
+        /// <summary>
+        /// 以 Id 取得成員的相關成員
+        /// </summary>
+        /// <param name="familyMemberId"></param>
+        /// <returns></returns>
+        IList<FamilyMember> GetRelatedFamilyMemberById(int familyMemberId);
+
+        /// <summary>
+        /// 以 Id[] 取得家族成員
+        /// </summary>
+        /// <param name="familyMemberIds"></param>
+        /// <returns>FamilyMembers</returns>
+        IList<FamilyMember> GetFamilyMembersByIds(int[] familyMemberIds);
     }
 }

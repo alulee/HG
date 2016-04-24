@@ -24,16 +24,18 @@ using HGenealogy.Infrastructure.Cache;
 using HGenealogy.Services;
 using HGenealogy.Models.Media;
 using HGenealogy.Models.HGPedigree;
-using HGenealogy.Models.HGFamilyMember;
-using HGenealogy.Domain;
+using HGenealogy.Models.HGFamilyMembers;
+using HGenealogy.Domain.HGFamilyMembers;
+using HGenealogy.Services.HGFamilyMembers;
+using HGenealogy.Domain.Common; 
 
 namespace HGenealogy.Controllers
 {
-    public partial class HGFamilyMemberController : BasePublicController
+    public partial class HGFamilyMembersController : BasePublicController
     {
 		#region Fields
 
-        private readonly IHGFamilyMemberService _hgFamilyMemberService;
+        private readonly IFamilyMemberService _familyMemberService;
         private readonly IWorkContext _workContext;
         private readonly IPictureService _pictureService;
         private readonly ILocalizationService _localizationService;
@@ -43,13 +45,14 @@ namespace HGenealogy.Controllers
         private readonly IEventPublisher _eventPublisher;
         private readonly MediaSettings _mediaSettings;
         private readonly ICacheManager _cacheManager;
+        private readonly HGenealoySettings _hgenealogySettings; 
         
         #endregion
 
 		#region Constructors
 
-        public HGFamilyMemberController(
-            IHGFamilyMemberService hgFamilyMemberService,
+        public HGFamilyMembersController(
+            IFamilyMemberService familyMemberService,
             IWorkContext workContext, 
             IPictureService pictureService, 
             ILocalizationService localizationService,
@@ -58,9 +61,10 @@ namespace HGenealogy.Controllers
             IPermissionService permissionService, 
             IEventPublisher eventPublisher,
             MediaSettings mediaSettings,
-            ICacheManager cacheManager)
+            ICacheManager cacheManager,
+            HGenealoySettings hgenealogySettings)
         {
-            this._hgFamilyMemberService = hgFamilyMemberService;
+            this._familyMemberService = familyMemberService;
             this._workContext = workContext;
             this._pictureService = pictureService;
             this._localizationService = localizationService;
@@ -70,6 +74,7 @@ namespace HGenealogy.Controllers
             this._eventPublisher = eventPublisher;
             this._mediaSettings = mediaSettings;
             this._cacheManager = cacheManager;
+            this._hgenealogySettings = hgenealogySettings;
         }
 
         #endregion
@@ -77,44 +82,73 @@ namespace HGenealogy.Controllers
         #region Utilities
 
         [NonAction]
-        protected virtual IEnumerable<HGFamilyMemberOverviewModel> PrepareHGFamilyMemberOverviewModels(IEnumerable<HGFamilyMember> hgFamilyMembers,
+        protected virtual IEnumerable<FamilyMemberOverviewModel> PrepareFamilyMemberOverviewModels(IEnumerable<FamilyMember> familyMembers,
             bool preparePictureModel = true,
-            int? hgFamilyMemberThumbPictureSize = null)
+            int? familyMemberThumbPictureSize = null)
         {
-            return this.PrepareHGFamilyMemberOverviewModels(_workContext,
+            return this.PrepareFamilyMemberOverviewModels(_workContext,
                 _localizationService,
                 _pictureService, 
                 _webHelper, 
                 _cacheManager,
                 _mediaSettings,
-                _hgFamilyMemberService,
-                hgFamilyMembers,
+                _familyMemberService,
+                familyMembers,
                 preparePictureModel,
-                hgFamilyMemberThumbPictureSize
+                familyMemberThumbPictureSize
                 );
         }
 
+        [NonAction]
+        protected virtual FamilyMemberOverviewModel PrepareFamilyMemberOverviewModel(FamilyMember familyMember,
+            bool preparePictureModel = true,
+            int? familyMemberThumbPictureSize = null,
+            bool returnEmptyModel = false)
+        {
+            var familyMemberOverviewModel = this.PrepareFamilyMemberOverviewModel(
+                _workContext,
+                _localizationService,
+                _pictureService,
+                _webHelper,
+                _cacheManager,
+                _mediaSettings,
+                _familyMemberService,
+                familyMember,
+                preparePictureModel,
+                familyMemberThumbPictureSize,
+                returnEmptyModel
+                );
+
+            return familyMemberOverviewModel;
+        }
 
         [NonAction]
-        protected virtual HGFamilyMemberDetailsModel PrepareFamilyMemberDetailsPageModel(HGFamilyMember familymember)
+        protected virtual FamilyMemberDetailsModel PrepareFamilyMemberDetailsPageModel(FamilyMember familymember,
+            bool isAssociatedFamilyMember = false)
         {
+
             if (familymember == null)
                 throw new ArgumentNullException("familymember");
 
             #region Standard properties
 
-            var model = new HGFamilyMemberDetailsModel
+            var model = new FamilyMemberDetailsModel
             {
                 Id = familymember.Id,
                 FamilyName = familymember.GetLocalized(x => x.FamilyName),
                 GivenName = familymember.GetLocalized(x => x.GivenName),
-                Description = familymember.GetLocalized(x => x.Description) 
+                Description = familymember.GetLocalized(x => x.Description),
+                DateOfBirth = familymember.BirthDay.ToShortDateString(),
+                GenerationNo = familymember.GenerationNo > 0 ? familymember.GenerationNo.ToString() : "",
+                Email = familymember.GetLocalized(x => x.Email),
+                MobilePhone = familymember.GetLocalized(x => x.MobilePhone),
+                Gender = familymember.GetLocalized(x => x.Gender),
+                JobDescription = familymember.GetLocalized(x => x.JobDescription)
             };
-             
- 
+
             //email a friend
             //model.EmailAFriendEnabled = _catalogSettings.EmailAFriendEnabled;
-            
+
             //compare familymember
             //model.CompareProductsEnabled = _catalogSettings.CompareProductsEnabled;
 
@@ -137,6 +171,48 @@ namespace HGenealogy.Controllers
 
             #region Breadcrumb
 
+            if (!isAssociatedFamilyMember)
+            {
+                var breadcrumbCacheKey = string.Format(HGModelCacheEventConsumer.FAMILYMEMBER_BREADCRUMB_MODEL_KEY,
+                    familymember.Id,
+                    _workContext.WorkingLanguage.Id,
+                    "", // string.Join(",", _familyMemberService.GetFamilyMemberRoleIds()),
+                    ""); //_pedigreeContext.CurrentPedigree.Id);
+                model.Breadcrumb = _cacheManager.Get(breadcrumbCacheKey, () =>
+                {
+                    var breadcrumbModel = new FamilyMemberDetailsModel.FamilyMemberBreadcrumbModel
+                    {
+                        Enabled = true, //_familymemberSettings.BreadcrumbEnabled,
+                        FamilyMemberId = familymember.Id,
+                        FamilyMemberName = familymember.GetLocalized(x => x.GivenName)
+                    };
+
+                    return breadcrumbModel;
+                });
+            }
+
+            #endregion
+
+            #region FatherMember
+            
+            var fathermember = _familyMemberService.GetFamilyMemberById(familymember.FatherMemberId);
+            model.FatherMember = PrepareFamilyMemberOverviewModel(fathermember, familyMemberThumbPictureSize: _hgenealogySettings.ParentsMemberPictureThumbSizeOnDetailPage,  returnEmptyModel : true);
+
+            #endregion
+
+            #region MotherMember
+
+            var mothermember = _familyMemberService.GetFamilyMemberById(familymember.MotherMemberId);
+            model.MotherMember = PrepareFamilyMemberOverviewModel(mothermember, familyMemberThumbPictureSize: _hgenealogySettings.ParentsMemberPictureThumbSizeOnDetailPage, returnEmptyModel: true);
+
+            #endregion
+
+            #region Related familymember
+
+            //var relatedmembers = _familyMemberService.GetRelatedFamilyMemberById(familymember.Id);
+            //if (relatedmembers != null && relatedmembers.Count > 0)
+            //    model.RelatedMembers = PrepareFamilyMemberOverviewModels(relatedmembers, familyMemberThumbPictureSize: _hgenealogySettings.ParentsMemberPictureThumbSizeOnDetailPage) as IList<FamilyMemberOverviewModel>;
+
             #endregion
 
             #region FamilyMember tags
@@ -150,9 +226,9 @@ namespace HGenealogy.Controllers
             #region Pictures
             model.DefaultPictureZoomEnabled = _mediaSettings.DefaultPictureZoomEnabled;
             //default picture
-            var defaultPictureSize = _mediaSettings.ProductDetailsPictureSize;
+            var defaultPictureSize = this._hgenealogySettings.FamilyMemberDetailPictureThumbSize;
             //prepare picture models
-            var familyMemberPicturesCacheKey = string.Format(ModelCacheEventConsumer.HGFAMILYMEMBER_DEFAULTPICTURE_MODEL_KEY, familymember.Id, defaultPictureSize, true, _workContext.WorkingLanguage.Id, _webHelper.IsCurrentConnectionSecured(), 0); ;
+            var familyMemberPicturesCacheKey = string.Format(HGModelCacheEventConsumer.FAMILYMEMBER_DEFAULTPICTURE_MODEL_KEY, familymember.Id, defaultPictureSize, true, _workContext.WorkingLanguage.Id, _webHelper.IsCurrentConnectionSecured(), 0); ;
             var cachedPictures = _cacheManager.Get(familyMemberPicturesCacheKey, () =>
             {
                 var pictures = _pictureService.GetPicturesByProductId(familymember.Id);
@@ -179,7 +255,7 @@ namespace HGenealogy.Controllers
                 {
                     var pictureModel = new PictureModel
                     {
-                        ImageUrl = _pictureService.GetPictureUrl(picture, _mediaSettings.ProductThumbPictureSizeOnProductDetailsPage),
+                        ImageUrl = _pictureService.GetPictureUrl(picture, _hgenealogySettings.RelatedMemberPictureThumbSizeOnDetailPage),
                         FullSizeImageUrl = _pictureService.GetPictureUrl(picture),
                         Title = string.Format(_localizationService.GetResource("Media.FamilyMember.ImageLinkTitleFormat.Details"), model.GivenName),
                         AlternateText = string.Format(_localizationService.GetResource("Media.FamilyMember.ImageAlternateTextFormat.Details"), model.Description),
@@ -203,11 +279,11 @@ namespace HGenealogy.Controllers
             #endregion
 
             #region familymember attributes
- 
+
             #endregion
 
             #region familymember review overview
- 
+
             #endregion
 
             #region Pedigrees
@@ -215,22 +291,53 @@ namespace HGenealogy.Controllers
             //pedigree
 
             #endregion
-
-            #region Associated familymember
  
-            #endregion
-
             return model;
         }
 
-        #endregion
-    
-        #region HGFamilyMember
 
+        [NonAction]
+        protected virtual void PrepareFamilyMemberModel(FamilyMemberModel model, FamilyMember familymember, bool excludeProperties,
+            string overrideCustomFamilyMemberAttributesXml = "")
+        {
+            if (model == null)
+                throw new ArgumentNullException("model");
+
+            if (familymember != null)
+            {
+            }
+
+        }
+
+        #endregion
+
+        #region HGFamilyMember Action
+
+        #region 建立新家族成員
+
+        //[NopHttpsRequirement(SslRequirement.Yes)]
+        //available even when navigation is not allowed
+        //[PublicPedigreeAllowNavigation(true)]
+        public ActionResult Create()
+        {
+            //檢查是否允許建立新的家族成員 (族譜編修角色權限) 
+            //if (!_permissionService.Authorize(StandardPermissionProvider.ManagePedigree))
+            //    return AccessDeniedView();
+
+            var model = new FamilyMemberModel();
+            PrepareFamilyMemberModel(model, null, false);
+            
+
+            return View(model);
+        }
+
+        
+        #endregion
+ 
         [NopHttpsRequirement(SslRequirement.No)]
         public string Index()
         {
-            var hgFamilyMembers = _hgFamilyMemberService.GetAllHGFamilyMember();
+            var hgFamilyMembers = _familyMemberService.GetAllHGFamilyMember();
             if (hgFamilyMembers == null || hgFamilyMembers.Count == 0)
                 return "無家族成員...";
             else
@@ -244,17 +351,17 @@ namespace HGenealogy.Controllers
         [NopHttpsRequirement(SslRequirement.No)]
         public ActionResult Overview()
         {
-            var hgFamilyMembers = this._hgFamilyMemberService.GetAllHGFamilyMember();
-            var model = new List<HGFamilyMemberOverviewModel>();
-            model.AddRange(this.PrepareHGFamilyMemberOverviewModels(hgFamilyMembers));
+            var hgFamilyMembers = this._familyMemberService.GetAllHGFamilyMember();
+            var model = new List<FamilyMemberOverviewModel>();
+            model.AddRange(this.PrepareFamilyMemberOverviewModels(hgFamilyMembers));
 
             return View(model);
         }
 
         [NopHttpsRequirement(SslRequirement.No)]
-        public ActionResult FamilyMemberDetails(int familymemberid, int updatecartitemid = 0)
+        public ActionResult FamilyMemberDetails(int familymemberId, int updatecartitemid = 0)
         {
-            var familymember = _hgFamilyMemberService.GetHGFamilyMemberById(familymemberid);
+            var familymember = _familyMemberService.GetFamilyMemberById(familymemberId);
             if (familymember == null || familymember.IsDeleted)
                 return InvokeHttp404();
 
@@ -301,6 +408,30 @@ namespace HGenealogy.Controllers
             return View(model);
         }
 
+        [ChildActionOnly]
+        public ActionResult RelatedFamilyMembers(int familymemberId, int? familymemberThumbPictureSize)
+        {
+            //load and cache report
+            var familyMemberIds = _cacheManager.Get(string.Format(HGModelCacheEventConsumer.FAMILYMEMBER_RELATED_IDS_KEY, familymemberId, 0),
+                () =>
+                    this._familyMemberService.GetRelatedFamilyMemberById(familymemberId).Select(x => x.Id).ToArray()
+                    );
+
+            //load familyMembers
+            var familyMembers = _familyMemberService.GetFamilyMembersByIds(familyMemberIds);
+
+            //ACL and store mapping
+            // products = products.Where(p => _aclService.Authorize(p) && _storeMappingService.Authorize(p)).ToList();
+            //availability dates
+            // products = products.Where(p => p.IsAvailable()).ToList();
+
+            if (familyMembers.Count == 0)
+                return Content("");
+
+            var model = this.PrepareFamilyMemberOverviewModels(familyMembers, true, familymemberThumbPictureSize).ToList();
+            return PartialView(model);
+        }
+       
         #endregion
     }
 }

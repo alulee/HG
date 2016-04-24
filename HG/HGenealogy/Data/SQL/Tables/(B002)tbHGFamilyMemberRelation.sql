@@ -1,51 +1,41 @@
 ﻿/*****************************************************************
-* ScriptName...: tbHGFamilyMember (家族成員基本資料)
-* Purpose......: Create HGFamilyMember Table
+* ScriptName...: tbHGFamilyMemberRelation (家族成員關聯資料表)
+* Purpose......: Create HGFamilyMemberRelation Table
 * Programmer...: Randy
-* Created On...: 2016/03/23
+* Created On...: 2016/04/06
 * ****************************************************************/
 /* Modification History:
-* 2016/04/01  Randy First Cut
+* 2016/04/24 Randy First Cut
 * ****************************************************************/
 
 /*****************************************************************/
 /* Start Create Table Here                                       */
 /*****************************************************************/
 
-IF OBJECT_ID('HGFamilyMember') IS NOT NULL
+IF OBJECT_ID('HGFamilyMemberRelation') IS NOT NULL
 BEGIN
-	PRINT '<<<DROP TABLE HGFamilyMember>>>'
-	DROP TABLE HGFamilyMember
+	PRINT '<<<DROP TABLE HGFamilyMemberRelation>>>'
+	DROP TABLE HGFamilyMemberRelation
 END
 GO
 
-CREATE TABLE HGFamilyMember
+CREATE TABLE HGFamilyMemberRelation
 (
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[FamilyName] [nvarchar](30) NOT NULL	--姓
-		CONSTRAINT DF_HGFamilyMember_FamilyName DEFAULT '',
-	[GivenName] [nvarchar](50) NOT NULL	--名
-		CONSTRAINT DF_HGFamilyMember_GivenName DEFAULT '',
-	[Description] [nvarchar](Max) NOT NULL
-		CONSTRAINT DF_HGFamilyMember_Description DEFAULT '',
-	[PictureId] [int] NOT NULL
-		CONSTRAINT DF_HGFamilyMember_PictureId DEFAULT 0,
-	[IsPublic] [bit] NOT NULL				--是否公開
-		CONSTRAINT DF_HGFamilyMember_IsPublic DEFAULT 0,	
-	[IsPublished] [bit] NOT NULL			--是否發佈
-		CONSTRAINT DF_HGFamilyMember_IsPublished DEFAULT 0,
-	[IsDeleted] [bit] NOT NULL				--是否刪除
-		CONSTRAINT DF_HGFamilyMember_IsDeleted DEFAULT 0,
-	[DisplayOrder] [int] NOT NULL
-		CONSTRAINT DF_HGFamilyMember_DisplayOrder DEFAULT 0,
+	[FamilyMemberId] [int] NOT NULL 
+		CONSTRAINT DF_HGFamilyMemberRelation_FamilyMemberId DEFAULT 0,
+	[RelatedFamilyMemberId] [int] NOT NULL 
+		CONSTRAINT DF_HGFamilyMemberRelation_RelatedFamilyMemberId DEFAULT 0,
+	[RelationType] [varchar](10) NOT NULL
+		CONSTRAINT DF_HGFamilyMemberRelation_Relation DEFAULT '',
 	[CreatedOnUtc] [datetime2](7) NOT NULL	
-		CONSTRAINT DF_HGFamilyMember_CreatedOnUtc DEFAULT Getdate(),
+		CONSTRAINT DF_HGFamilyMemberRelation_CreatedOnUtc DEFAULT Getdate(),
 	[UpdatedOnUtc] [datetime2](7) NOT NULL		
-		CONSTRAINT DF_HGFamilyMember_UpdatedOnUtc DEFAULT Getdate(),
+		CONSTRAINT DF_HGFamilyMemberRelation_UpdatedOnUtc DEFAULT Getdate(),
 	[CreatedWho] [nvarchar](20) NOT NULL
-		CONSTRAINT DF_HGFamilyMember_CreatedWho DEFAULT '',
+		CONSTRAINT DF_HGFamilyMemberRelation_CreatedWho DEFAULT '',
 	[UpdatedWho] [nvarchar](20) NOT NULL
-		CONSTRAINT DF_HGFamilyMember_UpdatedWho DEFAULT '',
+		CONSTRAINT DF_HGFamilyMemberRelation_UpdatedWho DEFAULT '',
 	[LastChanged] TimeStamp	--資料更新旗標
 )
 GO
@@ -56,19 +46,19 @@ GO
 /*****************************************************************/
 /* Start Authirity Table Here                                    */
 /*****************************************************************/
-IF OBJECT_ID('HGFamilyMember') IS NULL
+IF OBJECT_ID('HGFamilyMemberRelation') IS NULL
 BEGIN
-	PRINT '<<<CREATION OF TABLE HGFamilyMember FAILED>>>'
+	PRINT '<<<CREATION OF TABLE HGFamilyMemberRelation FAILED>>>'
 END
 ELSE
 BEGIN
-	PRINT '<<<CREATED TABLE HGFamilyMember>>>'
+	PRINT '<<<CREATED TABLE HGFamilyMemberRelation>>>'
 	--/* Grant Permissions */
-	--	PRINT '<<<CREATED TABLE HGFamilyMember Grant Authority to HG>>>'
-	--GRANT INSERT ON HGFamilyMember TO HG
-	--GRANT UPDATE ON HGFamilyMember TO HG
-	--GRANT DELETE ON HGFamilyMember TO HG
-	--GRANT SELECT ON HGFamilyMember TO HG
+	--	PRINT '<<<CREATED TABLE HGFamilyMemberRelation Grant Authority to HG>>>'
+	--GRANT INSERT ON HGFamilyMemberRelation TO HG
+	--GRANT UPDATE ON HGFamilyMemberRelation TO HG
+	--GRANT DELETE ON HGFamilyMemberRelation TO HG
+	--GRANT SELECT ON HGFamilyMemberRelation TO HG
 	--/* End Grant Permissions */
 END
 /*****************************************************************/
@@ -78,22 +68,22 @@ END
 /*****************************************************************/
 /* Primary Key --- Start                                         */
 /*****************************************************************/
-IF NOT OBJECT_ID('PKHGFamilyMemberKey') IS NULL
+IF NOT OBJECT_ID('PKHGFamilyMemberRelationKey') IS NULL
 BEGIN
-	PRINT '<<<Dropping Primary Key PKHGFamilyMemberKey(Id) From Table HGFamilyMember>>>'
-	ALTER TABLE HGFamilyMember
+	PRINT '<<<Dropping Primary Key PKHGFamilyMemberRelationKey(Id) From Table HGFamilyMemberRelation>>>'
+	ALTER TABLE HGFamilyMemberRelation
 	DROP
-		CONSTRAINT PKHGFamilyMemberKey
+		CONSTRAINT PKHGFamilyMemberRelationKey
 END
 GO
 
-IF OBJECT_ID('PKHGFamilyMemberKey') IS NULL
+IF OBJECT_ID('PKHGFamilyMemberRelationKey') IS NULL
 BEGIN
-	PRINT '<<<Adding Primary Key PKHGFamilyMemberKey(Id) To Table HGFamilyMember>>>'
+	PRINT '<<<Adding Primary Key PKHGFamilyMemberRelationKey(Id) To Table HGFamilyMemberRelation>>>'
 	SET NOCOUNT ON
-	ALTER TABLE HGFamilyMember
+	ALTER TABLE HGFamilyMemberRelation
 	ADD
-		CONSTRAINT PKHGFamilyMemberKey PRIMARY KEY CLUSTERED (Id) WITH FILLFACTOR=75 ON [Primary]
+		CONSTRAINT PKHGFamilyMemberRelationKey PRIMARY KEY CLUSTERED (Id) WITH FILLFACTOR=75 ON [Primary]
 END
 GO
 /*****************************************************************/
