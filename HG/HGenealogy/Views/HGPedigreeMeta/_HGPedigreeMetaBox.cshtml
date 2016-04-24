@@ -1,0 +1,49 @@
+﻿@using HGenealogy.Models.HGPedigree
+@model HGPedigreeMetaModel
+
+@using Nop.Core
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@using Nop.Core.Infrastructure
+
+<div class="product-item" data-productid="@Model.Id">
+    <div class="picture">
+        <img src="data:image;base64,@System.Convert.ToBase64String(Model.Image)" />
+        @*<a href="@Url.RouteUrl("Product", new { SeName = Model. })" title="@Model.DefaultPictureModel.Title">
+                <img alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" />
+            </a>*@
+    </div>
+    <div class="details">
+        <h2 class="product-title">
+            @Html.ActionLink(Model.Title, "Index", "HGPedigreeInfo", new { hGPedigreeID = Model.Id }, null)
+            @*<a href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">@Model.Name</a>*@
+        </h2>
+    </div>
+    <div class="description">
+        @Model.Description
+        @*@Html.Raw(Model.Description)*@
+    </div>
+    <div class="buttons">
+        <input type="button" value="檢視明細" class="button-2 product-box-add-to-cart-button" onclick="showHGPedigreeInfo('@Model.Id ');" />
+        <input type="button" value="修改" title="bb" class="button-2 add-to-compare-list-button" onclick="doUpdate();" />
+        <input type="button" value="刪除" title="cc" class="button-2 add-to-wishlist-button" onclick="doDelete();" />
+    </div>
+</div>
+
+<script type="text/javascript">
+    function showHGPedigreeInfo(id)
+    {
+        var url = '@Url.Action("Index", "HGPedigreeInfo", new { hGPedigreeID = "@id" })'
+        location.href = url;
+    }
+
+    function doUpdate()
+    {
+        var url = '@Url.Action("DoUpdate", new { id=Model.Id })'
+        location.href = url;
+    }
+    function doDelete()
+    {
+
+    }
+</script>

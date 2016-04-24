@@ -1,0 +1,80 @@
+﻿@using HGenealogy.Models.HGPedigree
+@model HGPedigreeInfoModel
+
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    string tilte = ViewBag.Title;
+    int currentHGPedigreeID = ViewBag.currentHGPedigreeID;
+    string currentInfoType = ViewBag.currentInfoType;
+    IDictionary<string, string> infoTypeDic = ViewBag.infoTypeDic;
+}
+@using (Html.BeginForm("SaveHGPedigreeInfo", "HGPedigreeInfo", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.HGPedigreeID)
+    @Html.HiddenFor(model => model.InfoType)
+    @Html.HiddenFor(model => model.CreatedOnUtc)
+    @Html.HiddenFor(model => model.UpdatedOnUtc)
+    @Html.HiddenFor(model => model.CreatedWho)
+    @Html.HiddenFor(model => model.UpdatedWho)
+    <div class="page registration-page">
+        <div class="page-title">
+            <h1>@tilte</h1>
+        </div>
+        <div class="page-body ">
+            @{
+    var validationSummary = Html.ValidationSummary(true);
+            }
+            @if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+            {
+                <div class="message-error">
+                    @validationSummary
+                </div>
+            }
+            <!-- Modal content-->
+            <div class="fieldset">
+                @*<div class="title">
+                        <strong>基本資料</strong>
+                    </div>*@
+                <div class="form-fields">
+                    <div class="inputs">
+                        <label for="TiTle">資料抬頭</label>
+                        @Html.TextBoxFor(model => model.InfoTitle, new { @id = "InfoTitle" })
+                        @Html.RequiredHint()
+                        @Html.ValidationMessageFor(model => model.InfoTitle)
+                    </div>
+                    <div class="inputs">
+                        <label for="InfoContent">描述</label>
+                        @Html.TextAreaFor(model => model.InfoContent, new { @id = "InfoContent" });
+                        @Html.RequiredHint()
+                        @Html.ValidationMessageFor(model => model.InfoContent)
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                @{
+                    var type = "建立";
+                    if (Model.HGPedigreeID != 0)
+                    {
+                        type = "存檔";
+                    }
+                <input type="submit" id="register-button" class="button-1 register-next-step-button" name="register-button" value='@type' />
+                }
+            </div>
+
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    function onSaveSuccess() {
+        alert("儲存成功!");
+    }
+
+
+    var onSaveFail = function (result) {
+        alert("儲存失敗!");
+    }
+</script>

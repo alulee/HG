@@ -1,0 +1,158 @@
+﻿@using HGenealogy.Models.HGPedigree
+@model HGPedigreeMetaModel
+
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+}
+
+<style type="text/css">
+    .modal-dialog {
+        width: 1000px;
+        max-width: 1200px;
+    }
+
+    .modal-body {
+        max-height: calc(100vh - 210px);
+        overflow-y: auto;
+    }
+</style>
+
+<div class="page registration-page">
+    <div class="page-title">
+        <h1>@ViewBag.Title</h1>
+    </div>
+    <div class="page-body ">
+        @{Html.EnableClientValidation();}
+        @using (Ajax.BeginForm("SaveHGPedigreeMeta", "HGPedigreeMeta", null, new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "createDialog",
+            OnSuccess = "onSaveSuccess",
+            OnFailure = "onSaveFail(error)"
+        }, new { id = "createForm", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.CreatedOnUtc)
+            @Html.HiddenFor(model => model.UpdatedOnUtc)
+            @Html.HiddenFor(model => model.CreatedWho)
+            @Html.HiddenFor(model => model.UpdatedWho)
+                <!-- Modal content-->
+            <div class="fieldset">
+                <div class="title">
+                    <strong>基本資料</strong>
+                </div>
+                <div class="form-fields">
+                    <div class="inputs">
+                        <label for="TiTle">家譜名</label>
+                        @Html.TextBoxFor(model => model.Title, new { @id = "Title" })
+                        @Html.RequiredHint()
+                        @Html.ValidationMessageFor(model => model.Title)
+                    </div>
+                    <div class="inputs">
+                        <label for="Editor">編纂者</label>
+                        @Html.TextBoxFor(model => model.Editor, new { @id = "Editor" })
+                        @Html.RequiredHint()
+                        @Html.ValidationMessageFor(model => model.Editor)
+                    </div>
+                    <div class="inputs">
+                        <label for="Description">家譜描述</label>
+                        @Html.TextAreaFor(model => model.Description, new { @id = "Description" });
+                        @Html.RequiredHint()
+                        @Html.ValidationMessageFor(model => model.Editor)
+                    </div>
+                </div>
+            </div>
+            <div class="fieldset">
+                <div class="title">
+                    <strong>卷冊資料</strong>
+                    <div class="form-fields">
+                        <div class="inputs">
+                            <label for="PublishDate">出版日期</label>
+                            @Html.TextBoxFor(model => model.PublishDate, new { @id = "PublishDate" })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Editor)
+                        </div>
+                        <div class="inputs">
+                            <label for="Volumes">卷數（冊）</label>
+                            @Html.TextBoxFor(model => model.Volumes, new { @id = "Volumes" })
+                        </div>
+                        <div class="inputs">
+                            <label for="Pages">頁數</label>
+                            @Html.EditorFor(model => model.Pages)
+                            @*@Html.TextBoxFor(model => model.Pages, new { @id = "Pages" })*@
+                        </div>
+                        <div class="inputs">
+                            <label for="FamilyName">姓氏</label>
+                            @Html.TextBoxFor(model => model.FamilyName, new { @id = "FamilyName" })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Editor)
+                        </div>
+                        <div class="inputs">
+                            <label for="OriginalAncestor">始祖</label>
+                            @Html.TextBoxFor(model => model.OriginalAncestor, new { @id = "OriginalAncestor" })
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Editor)
+                        </div>
+                        <div class="inputs">
+                            <label for="DateMoveToTaiwan">入臺年代</label>
+                            @Html.TextBoxFor(model => model.DateMoveToTaiwan, new { @id = "DateMoveToTaiwan" })
+                        </div>
+                        <div class="inputs">
+                            <label for="AncestorToTaiwan">入臺祖</label>
+                            @Html.TextBoxFor(model => model.AncestorToTaiwan, new { @id = "AncestorToTaiwan" })
+                        </div>
+                        <div class="inputs">
+                            <label for="OriginalAddress">原籍</label>
+                            @Html.TextBoxFor(model => model.AncestorToTaiwan, new { @id = "OriginalAddress" })
+                        </div>
+                        <div class="inputs">
+                            <label for="TotalGenerations" class="col-md-2 control-label">世代數</label>
+                            @Html.TextBoxFor(model => model.TotalGenerations, new { @id = "TotalGenerations" })
+                        </div>
+                        <div class="inputs">
+                            <label for="GenerationToTaiwan" class="col-md-2 control-label">入臺世代</label>
+                            @Html.TextBoxFor(model => model.GenerationToTaiwan, new { @id = "GenerationToTaiwan" })
+                        </div>
+                        <div class="inputs">
+                            <label for="LivingAreaInTaiwan" class="col-md-2 control-label">入臺包含地區</label>
+                            @Html.TextBoxFor(model => model.LivingAreaInTaiwan, new { @id = "LivingAreaInTaiwan" })
+                        </div>
+                        <div class="inputs">
+                            <label for="OriginalCollector" class="col-md-2 control-label">原件珍藏者(單位)</label>
+                            @Html.TextBoxFor(model => model.OriginalCollector, new { @id = "OriginalCollector" })
+                        </div>
+                        <div class="inputs">
+                            <label for="ContentNotes" class="col-md-2 control-label">附註</label>
+                            @Html.TextAreaFor(model => model.ContentNotes, new { @id = "ContentNotes" })
+                        </div>
+                        <div class="inputs">
+                            <label for="TangName" class="col-md-2 control-label">堂號</label>
+                            @Html.TextBoxFor(model => model.TangName, new { @id = "TangName" })
+                        </div>
+                        <div class="inputs">
+                            <label for="IsPublic" class="col-md-2 control-label">是否公開</label>
+                            @Html.CheckBoxFor(model => model.IsPublic, new { @id = "IsPublic" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <input type="submit" id="register-button" class="button-1 register-next-step-button" name="register-button" value="存檔" />
+            </div>
+        }
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function onSaveSuccess() {
+        alert("儲存成功!");
+    }
+
+
+    var onSaveFail = function (result) {
+        alert("儲存失敗!");
+    }
+</script>

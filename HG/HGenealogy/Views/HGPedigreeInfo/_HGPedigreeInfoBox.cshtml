@@ -1,0 +1,75 @@
+﻿@using HGenealogy.Models.HGPedigree
+@model HGPedigreeInfoModel
+
+
+@*<div class="panel panel-info">
+    <div class="panel-heading" style="position:relative;">
+        <div class="row form-group">
+            <div class="col-md-2">
+                <h4>@Html.ActionLink(Model.InfoTitle, "DoUpdate", new { id = Model.Id })</h4>
+            </div>
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-info btn-xs" onclick="doUpdate('@Model.Id');">
+                    <span class="glyphicon glyphicon-pencil">修改</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        @Model.InfoContent
+    </div>
+</div>*@
+
+
+<div class="product-item" data-productid="@Model.Id">
+    <div class="details">
+        <h2 class="product-title">
+            @Html.ActionLink(Model.InfoTitle, "DoUpdate", new { id = Model.Id })
+        </h2>
+        <div class="description">
+            @Html.Raw(Model.InfoContent)
+        </div>
+
+        <div class="add-info">
+            @Html.Widget("productbox_addinfo_before", Model.Id)
+            @Html.Widget("productbox_addinfo_middle", Model.Id)
+            <div class="buttons">
+                @*<input type="button" value="AA" class="button-2 product-box-add-to-cart-button"  />*@
+                <input type="button" value="BBB"  class="button-2 edit-post-button"  />
+                <input type="button" value="CCC"  class="button-2 add-to-wishlist-button"  />
+                <input type="button" value="BBB" class="button-1 edit-address-button" />
+            </div>
+            @Html.Widget("productbox_addinfo_after", Model.Id)
+        </div>
+    </div>
+</div>
+
+<div class="page account-page address-list-page">
+    <div class="page-title">
+        <h1>aaa</h1>
+    </div>
+    <div class="page-body">
+            <div class="address-list">
+
+                    <div class="section address-item">
+                        <div class="title">
+                            <strong>123</strong>
+                        </div>
+                        <div class="buttons">
+                            <input type="button" class="button-2 edit-address-button"   value='修改' />
+                            <input type="button" class="button-2 delete-address-button"  value="刪除" />
+                        </div>
+                    </div>
+            </div>
+        <div class="add-button">
+            <input type="button" class="button-1 add-address-button" value="@T("Common.AddNew")" />
+        </div>
+    </div>
+</div>
+
+<div class="section address-item">
+    <div class=" buttons">
+        <input type="button" class="button-2 edit-address-button" value='修改' />
+        <input type="button" class="button-2 delete-address-button" value="刪除" />
+    </div>
+</div>

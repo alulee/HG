@@ -1,0 +1,119 @@
+﻿@using HGenealogy.Models.HGPedigree
+@model List<HGPedigreeInfoModel>
+
+@{
+    Layout = "~/Views/Shared/_HGColumnsTwo.cshtml";
+
+    string tilte = ViewBag.Title;
+    int currentHGPedigreeID = ViewBag.currentHGPedigreeID;
+    string currentInfoType = ViewBag.currentInfoType;
+    IDictionary<string, string> infoTypeDic = ViewBag.infoTypeDic;
+}
+@*css格式參照 Customer/Addresses  *@
+<div class="page account-page address-list-page">
+    <div class="page-title">
+        <h1>@tilte</h1>
+    </div>
+    <div class="page-body">
+        @if (Model.Count > 0)
+        {
+            <div class="address-list">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var item = Model[i];
+
+                    <div class="section address-item">
+                        <div class="title">
+                            <strong>@item.InfoTitle </strong>
+                        </div>
+                        <ul class="info">
+                            <li class="email">
+                                @Html.Raw(item.InfoContent)
+                            </li>
+                        </ul>
+                        <div class="buttons">
+                            <input type="button" class="button-2 edit-address-button" onclick="location.href='@Url.Action("DoUpdate", new { id = item .Id})'" value='修改' />
+                            <input type="button" class="button-2 delete-address-button" value="刪除" onclick='doDelete("@item.Id")' />
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="no-data">
+                無資料可顯示
+            </div>
+        }
+        <div class="add-button">
+            <input type="button" class="button-1 add-address-button" onclick="location.href='@Url.Action("DoCreate", new { hGPedigreeID = currentHGPedigreeID, infoType = currentInfoType })'" value="新增" />
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function doDelete(id) {
+        console.log('@currentInfoType');
+        var currentHGPedigreeID = '@currentHGPedigreeID';
+        var currentInfoType = '@currentInfoType';
+        var url = '@Url.Action("Index")?hGPedigreeID=' + currentHGPedigreeID + '&infoType=' + currentInfoType;
+        console.log(url);
+        if (confirm("確定是否要刪除?")) {
+            $.ajax({
+                url: '@Url.Action("DoDelete")',
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                success: function (response) {
+                    //$('#loadingDialog').dialog('close');
+                    if (response.success = true) {
+                        alert("刪除成功!");
+                        location.href = url;
+                    }
+                    else {
+                        alert(response.message);
+                    }
+                },
+                error: function (response) {
+                    alert(response);
+                }
+            });
+        }
+    }
+</script>
+
+
+@section left
+{
+    @Html.Widget("left_side_column_before")
+    <div class="block block-category-navigation">
+        <div class="title">
+            <strong>族譜資訊</strong>
+        </div>
+        <div class="listbox">
+            <ul class="list">
+                @foreach (KeyValuePair<string, string> keyValue in infoTypeDic)
+                {
+                    @RenderCategoryLine(keyValue, currentHGPedigreeID, currentInfoType)
+                }
+            </ul>
+        </div>
+    </div>
+    @Html.Widget("left_side_column_after")
+}
+
+@helper RenderCategoryLine(KeyValuePair<string, string> infoTypeKeyValue, int currentHGPedigreeID, string currentInfoType)
+{
+
+    bool active = infoTypeKeyValue.Key == currentInfoType;
+    bool last = infoTypeKeyValue.Key == "Tomb";
+    string liClass = active ? "active" : "inactive";
+    if (last)
+    {
+        liClass += " last";
+    }
+    <li class="@liClass">
+        @Html.ActionLink(infoTypeKeyValue.Value, "Index", new { hGPedigreeID = currentHGPedigreeID, infoType = infoTypeKeyValue.Key })
+    </li>
+}
