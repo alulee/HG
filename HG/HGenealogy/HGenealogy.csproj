@@ -289,6 +289,8 @@
     <Compile Include="Mapping\FamilyMembes\FamilyMemberRelationMap.cs" />
     <Compile Include="Mapping\FamilyMembes\FamilyMemberPictureMap.cs" />
     <Compile Include="Mapping\FamilyMembes\FamilyMemberMap.cs" />
+    <Compile Include="Mapping\HGPedigreeEventMap.cs" />
+    <Compile Include="Mapping\HGPedigreeInfoMap.cs" />
     <Compile Include="Mapping\HGTestMap.cs" />
     <Compile Include="Mapping\HGPedigreeMetaMap.cs" />
     <Compile Include="Models\Boards\ActiveDiscussionsModel.cs" />
@@ -327,8 +329,9 @@
     <Compile Include="Models\HGFamilyMembers\FamilyMemberDetailsModel.cs" />
     <Compile Include="Models\HGFamilyMembers\FamilyMemberModel.cs" />
     <Compile Include="Models\HGFamilyMembers\FamilyMemberOverviewModel.cs" />
-    <Compile Include="Models\HGPedigreeInfo\HGPedigreeInfoModel.cs" />
     <Compile Include="Models\HGPedigreeMeta\HGPedigreeMetaModel.cs" />
+    <Compile Include="Models\HGPedigree\HGPedigreeInfoModel.cs" />
+    <Compile Include="Models\HGPedigree\HGPedigreeMetaNavigationModel.cs" />
     <Compile Include="Models\HGPedigree\HGTestModel.cs" />
     <Compile Include="Models\HGPedigree\HGPedigreePagingFilteringModel.cs" />
     <Compile Include="Models\HGPedigree\HGPedigreeMetaModel.cs" />

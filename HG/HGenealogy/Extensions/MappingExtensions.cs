@@ -17,7 +17,6 @@ using HGenealogy.Domain.HGFamilyMembers;
 using HGenealogy.Domain;
 using AutoMapper;
 using HGenealogy.Models.HGPedigree;
-using HGenealogy.Models.HGPedigreeInfo;
 
 namespace HGenealogy.Extensions
 {
