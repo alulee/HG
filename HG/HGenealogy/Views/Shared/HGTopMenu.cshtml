@@ -3,7 +3,8 @@
     <li><a href="@Url.RouteUrl("HomePage")">@T("首頁")</a></li>
 
     <li>
-        <a href="@Url.RouteUrl("HGPedigree")">@T("族譜")</a>
+        @*<a href="@Url.RouteUrl("HGPedigree")">@T("族譜")</a>*@
+        @Html.ActionLink("族譜","Index", "HGPedigreeMeta")
     </li>
 
     <li>

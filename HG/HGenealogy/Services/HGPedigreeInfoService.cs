@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Nop.Core;
@@ -9,24 +9,21 @@ using HGenealogy.Domain;
 
 namespace HGenealogy.Services
 {
-    /// <summary>
-    /// HGPedigree service
-    /// </summary>
-    public partial class HGPedigreeMetaService : IHGPedigreeMetaService
+    public partial class HGPedigreeInfoService : IHGPedigreeInfoService
     {
-        private readonly IRepository<HGPedigreeMeta> _hGPedigreeMetaRepository;
+        private readonly IRepository<HGPedigreeInfo> _hGPedigreeInfoRepository;
 
-        public HGPedigreeMetaService(
-            IRepository<HGPedigreeMeta> hGPedigreeMetaRepository)
+        public HGPedigreeInfoService(
+            IRepository<HGPedigreeInfo> hGPedigreeInfoRepository)
         {
-            this._hGPedigreeMetaRepository = hGPedigreeMetaRepository;
+            this._hGPedigreeInfoRepository = hGPedigreeInfoRepository;
         }
 
 
-        public virtual List<HGPedigreeMeta> GetAllHGPedigreeMeta(
+        public virtual List<HGPedigreeInfo> GetAllHGPedigreeInfo(
             int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false)
         {
-            var query = _hGPedigreeMetaRepository.Table;
+            var query = _hGPedigreeInfoRepository.Table;
             //if (!showHidden)
             //    query = query.Where(c => c.Published);
             //if (!String.IsNullOrWhiteSpace(hgPedigreeName))
@@ -54,41 +51,41 @@ namespace HGenealogy.Services
             //return  query.ToList();
         }
 
-        public HGPedigreeMeta GetHGPedigreeMetaById(int id)
+        public HGPedigreeInfo GetHGPedigreeInfoById(int id)
         {
-            var hGPedigreeMeta = _hGPedigreeMetaRepository.Table
+            var hGPedigreeMeta = _hGPedigreeInfoRepository.Table
                                                         .Where(x => x.Id == id)
                                                         .FirstOrDefault();
 
             return hGPedigreeMeta;
         }
 
-        public virtual void InsertHGPedigreeMeta(HGPedigreeMeta hgPedigreeMeta)
+        public virtual void InsertHGPedigreeInfo(HGPedigreeInfo hGPedigreeInfo)
         {
-            if (hgPedigreeMeta == null)
-                throw new ArgumentNullException("hgPedigreeMeta");
+            if (hGPedigreeInfo == null)
+                throw new ArgumentNullException("hGPedigreeInfo");
 
-            _hGPedigreeMetaRepository.Insert(hgPedigreeMeta);
+            _hGPedigreeInfoRepository.Insert(hGPedigreeInfo);
 
         }
 
 
 
-        public virtual void UpdateHGPedigreeMeta(HGPedigreeMeta hgPedigreeMeta)
+        public virtual void UpdateHGPedigreeInfo(HGPedigreeInfo hGPedigreeInfo)
         {
-            if (hgPedigreeMeta == null)
-                throw new ArgumentNullException("hgPedigreeMeta");
+            if (hGPedigreeInfo == null)
+                throw new ArgumentNullException("hGPedigreeInfo");
 
-            _hGPedigreeMetaRepository.Update(hgPedigreeMeta);
+            _hGPedigreeInfoRepository.Update(hGPedigreeInfo);
             
         }
 
-        public virtual void DeleteHGPedigreeMeta(HGPedigreeMeta hgPedigreeMeta)
+        public virtual void DeleteHGPedigreeInfo(HGPedigreeInfo hGPedigreeInfo)
         {
-            if (hgPedigreeMeta == null)
-                throw new ArgumentNullException("hgPedigreeMeta");
+            if (hGPedigreeInfo == null)
+                throw new ArgumentNullException("hGPedigreeInfo");
 
-            _hGPedigreeMetaRepository.Delete(hgPedigreeMeta);
+            _hGPedigreeInfoRepository.Delete(hGPedigreeInfo);
 
         }
     }

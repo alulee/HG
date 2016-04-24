@@ -15,28 +15,23 @@ using HGenealogy.Models.Common;
 using HGenealogy.Models.HGFamilyMembers;
 using HGenealogy.Domain.HGFamilyMembers;
 using HGenealogy.Domain;
-
+using AutoMapper;
+using HGenealogy.Models.HGPedigree;
 namespace HGenealogy.Extensions
 {
     public static class MappingExtensions
     {
         //Pedigree
-        public static HGPedigreeMetaModel ToModel(this HGPedigreeMeta entity)
+        public static TDestination MapTo<TSource, TDestination>(this TSource source)
         {
-            if (entity == null)
-                return null;
-
-            var model = new HGPedigreeMetaModel
-            {
-                Id = entity.Id,
-                Title = entity.GetLocalized(x => x.Title),
-                FamilyName = entity.GetLocalized(x => x.FamilyName) 
-            };
-            return model;
+            return Mapper.Map<TSource, TDestination>(source);
         }
 
-        //FamilyMember
-        public static FamilyMemberDetailsModel ToDetailsModel(this FamilyMember entity)
+        public static TDestination MapTo<TSource, TDestination>(this TSource source, TDestination destination)
+        {
+            return Mapper.Map(source, destination);
+        }
+        public static HGFamilyMemberDetailsModel ToDetailsModel(this HGFamilyMember entity)
         {
             if (entity == null)
                 return null;
@@ -63,6 +58,131 @@ namespace HGenealogy.Extensions
             };
             return model;
         }
+
+        #region HGPedigreeMeta
+        public static HGenealogy.Models.HGPedigree.HGPedigreeMetaModel ToModel(this HGPedigreeMeta entity)
+        {
+            if (entity == null)
+                return null;
+
+            var model = new HGenealogy.Models.HGPedigree.HGPedigreeMetaModel
+            {
+                Id = entity.Id,
+                Title = entity.Title,
+                Editor = entity.Editor,
+                Description = entity.Description,
+                Image = entity.Image,
+                PublishDate = entity.PublishDate,
+                Volumes = entity.Volumes,
+                Pages = entity.Pages,
+                FamilyName = entity.FamilyName,
+                OriginalAncestor = entity.OriginalAncestor,
+                DateMoveToTaiwan = entity.DateMoveToTaiwan,
+                AncestorToTaiwan = entity.AncestorToTaiwan,
+                OriginalAddress = entity.OriginalAddress,
+                TotalGenerations = entity.TotalGenerations,
+                GenerationToTaiwan = entity.GenerationToTaiwan,
+                LivingAreaInTaiwan = entity.LivingAreaInTaiwan,
+                OriginalCollector = entity.OriginalCollector,
+                ContentNotes = entity.ContentNotes,
+                TangName = entity.TangName,
+                IsPublic = entity.IsPublic,
+                CreatedOnUtc = entity.CreatedOnUtc,
+                UpdatedOnUtc = entity.UpdatedOnUtc,
+                CreatedWho = entity.CreatedWho,
+                UpdatedWho = entity.UpdatedWho
+            };
+            return model;
+        }
+
+        public static HGPedigreeMeta ToEntity(this HGenealogy.Models.HGPedigree.HGPedigreeMetaModel model)
+        {
+            if (model == null)
+                return null;
+
+            var entity = new HGPedigreeMeta
+            {
+                Id = model.Id,
+                Title = model.Title,
+                Editor = model.Editor,
+                Description = model.Description,
+                Image = model.Image,
+                PublishDate = model.PublishDate,
+                Volumes = model.Volumes,
+                Pages = model.Pages,
+                FamilyName = model.FamilyName,
+                OriginalAncestor = model.OriginalAncestor,
+                DateMoveToTaiwan = model.DateMoveToTaiwan,
+                AncestorToTaiwan = model.AncestorToTaiwan,
+                OriginalAddress = model.OriginalAddress,
+                TotalGenerations = model.TotalGenerations,
+                GenerationToTaiwan = model.GenerationToTaiwan,
+                LivingAreaInTaiwan = model.LivingAreaInTaiwan,
+                OriginalCollector = model.OriginalCollector,
+                ContentNotes = model.ContentNotes,
+                TangName = model.TangName,
+                IsPublic = model.IsPublic,
+                CreatedOnUtc = model.CreatedOnUtc,
+                UpdatedOnUtc = model.UpdatedOnUtc,
+                CreatedWho = model.CreatedWho,
+                UpdatedWho = model.UpdatedWho
+            };
+            return entity;
+        }
+
+        public static HGPedigreeMeta ToEntity(this HGPedigreeMetaModel model, HGPedigreeMeta destination)
+        {
+            return model.MapTo(destination);
+        }
+        #endregion
+
+        #region HGPedigreeInfo
+        public static HGPedigreeInfoModel ToModel(this HGPedigreeInfo entity)
+        {
+            if (entity == null)
+                return null;
+
+            var model = new HGPedigreeInfoModel
+            {
+                Id = entity.Id,
+                HGPedigreeID = entity.HGPedigreeID,
+                InfoType = entity.InfoType,
+                InfoTitle = entity.InfoTitle,
+                InfoContent = entity.InfoContent,
+                CreatedOnUtc = entity.CreatedOnUtc,
+                UpdatedOnUtc = entity.UpdatedOnUtc,
+                CreatedWho = entity.CreatedWho,
+                UpdatedWho = entity.UpdatedWho
+            };
+            return model;
+        }
+
+        public static HGPedigreeInfo ToEntity(this HGPedigreeInfoModel model)
+        {
+            if (model == null)
+                return null;
+
+            var entity = new HGPedigreeInfo
+            {
+                Id = model.Id,
+                HGPedigreeID = model.HGPedigreeID,
+                InfoType = model.InfoType,
+                InfoTitle = model.InfoTitle,
+                InfoContent = model.InfoContent,
+                CreatedOnUtc = model.CreatedOnUtc,
+                UpdatedOnUtc = model.UpdatedOnUtc,
+                CreatedWho = model.CreatedWho,
+                UpdatedWho = model.UpdatedWho
+            };
+            return entity;
+        }
+
+        public static HGPedigreeInfo ToEntity(this HGPedigreeInfoModel model, HGPedigreeInfo destination)
+        {
+            return model.MapTo(destination);
+        }
+        #endregion
+
 
         //address
         /// <summary>

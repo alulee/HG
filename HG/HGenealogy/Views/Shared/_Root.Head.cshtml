@@ -5,6 +5,7 @@
 @{
     var displayMiniProfiler = EngineContext.Current.Resolve<Nop.Core.Domain.StoreInformationSettings>().DisplayMiniProfilerInPublicStore;
 
+    //Html.AppendScriptParts("~/Scripts/bootstrap.min.js");
     Html.AppendScriptParts("~/Scripts/public.ajaxcart.js");
     Html.AppendScriptParts("~/Scripts/public.common.js");
     Html.AppendScriptParts("~/Scripts/jquery-migrate-1.2.1.min.js");
@@ -48,6 +49,7 @@
 </head>
 <body>
     @RenderBody()
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
     @Html.NopCssFiles(this.Url, ResourceLocation.Foot)
     @Html.NopScripts(this.Url, ResourceLocation.Foot)
 </body>

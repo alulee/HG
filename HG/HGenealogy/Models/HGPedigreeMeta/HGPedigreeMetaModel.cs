@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using Nop.Web.Framework.Mvc;
-using HGenealogy.Models.Media;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using Nop.Web.Framework;
-using FluentValidation.Attributes;
-using Nop.Web.Framework.Localization;
+using Nop.Web.Framework.Mvc;
 
-namespace HGenealogy.Models.HGPedigree
+namespace HGenealogy.Models.HGPedigreeMeta
 {
-    public partial class HGPedigreeMetaModel : BaseNopEntityModel
+    public class HGPedigreeMetaModel : BaseNopEntityModel
     {
         public string Title { get; set; }
         public string Editor { get; set; }
@@ -17,9 +15,7 @@ namespace HGenealogy.Models.HGPedigree
         public byte[] Image { get; set; }
         public DateTime PublishDate { get; set; }
         public int Volumes { get; set; }
-
         public int Pages { get; set; }
-
         public string FamilyName { get; set; }
         public string OriginalAncestor { get; set; }
         public string DateMoveToTaiwan { get; set; }
@@ -36,6 +32,5 @@ namespace HGenealogy.Models.HGPedigree
         public DateTime UpdatedOnUtc { get; set; }
         public string CreatedWho { get; set; }
         public string UpdatedWho { get; set; }
- 
     }
 }
