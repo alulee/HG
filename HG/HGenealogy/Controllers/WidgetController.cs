@@ -4,8 +4,8 @@ using System.Web.Routing;
 using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Services.Cms;
-using HGenealogy.Infrastructure.Cache;
 using HGenealogy.Models.Cms;
+using HGenealogy.Infrastructure.Cache;
 
 namespace HGenealogy.Controllers
 {

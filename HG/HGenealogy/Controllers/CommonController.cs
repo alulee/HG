@@ -418,7 +418,7 @@ namespace HGenealogy.Controllers
         public ActionResult Footer()
         {
             //footer topics
-            string topicCacheKey = string.Format(ModelCacheEventConsumer.TOPIC_FOOTER_MODEL_KEY,
+            string topicCacheKey = string.Format(HGModelCacheEventConsumer.TOPIC_FOOTER_MODEL_KEY,
                 _workContext.WorkingLanguage.Id, _storeContext.CurrentStore.Id);
             var cachedTopicModel = _cacheManager.Get(topicCacheKey, () =>
                 _topicService.GetAllTopics(_storeContext.CurrentStore.Id)
@@ -648,7 +648,7 @@ namespace HGenealogy.Controllers
             if (!_commonSettings.SitemapEnabled)
                 return RedirectToRoute("HomePage");
 
-            string cacheKey = string.Format(ModelCacheEventConsumer.SITEMAP_PAGE_MODEL_KEY, 
+            string cacheKey = string.Format(HGModelCacheEventConsumer.SITEMAP_PAGE_MODEL_KEY, 
                 _workContext.WorkingLanguage.Id,
                 string.Join(",", _workContext.CurrentCustomer.GetCustomerRoleIds()),
                 _storeContext.CurrentStore.Id);
@@ -715,7 +715,7 @@ namespace HGenealogy.Controllers
             if (!_commonSettings.SitemapEnabled)
                 return RedirectToRoute("HomePage");
 
-            string cacheKey = string.Format(ModelCacheEventConsumer.SITEMAP_SEO_MODEL_KEY, 
+            string cacheKey = string.Format(HGModelCacheEventConsumer.SITEMAP_SEO_MODEL_KEY, 
                 _workContext.WorkingLanguage.Id,
                 string.Join(",", _workContext.CurrentCustomer.GetCustomerRoleIds()),
                 _storeContext.CurrentStore.Id);

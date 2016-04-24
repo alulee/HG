@@ -241,7 +241,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\BasePublicController.cs" />
     <Compile Include="Controllers\BoardsController.cs" />
-    <Compile Include="Controllers\HGFamilyMemberController.cs" />
+    <Compile Include="Controllers\HGFamilyMembersController.cs" />
     <Compile Include="Controllers\HGTestController.cs" />
     <Compile Include="Controllers\HGPedigreeController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
@@ -253,12 +253,16 @@
     <Compile Include="Data\HGDataSettingsManager.cs" />
     <Compile Include="Data\HGEfDataProviderManager.cs" />
     <Compile Include="Data\HGStartUpTask.cs" />
-    <Compile Include="Domain\HGFamilyMember.cs" />
+    <Compile Include="Domain\Common\HGenealoySettings.cs" />
+    <Compile Include="Domain\HGFamilyMembers\FamilyMemberInfo.cs" />
+    <Compile Include="Domain\HGFamilyMembers\FamilyMemberRelation.cs" />
+    <Compile Include="Domain\HGFamilyMembers\FamilyMemberSettings.cs" />
+    <Compile Include="Domain\HGFamilyMembers\FamilyMember.cs" />
     <Compile Include="Domain\HGRepositoryRegistrar.cs" />
     <Compile Include="Domain\HGTest.cs" />
     <Compile Include="Domain\HGPedigreeMeta.cs" />
     <Compile Include="Data\HGenealogyObjectContext.cs" />
-    <Compile Include="Domain\HGFamilyMemberPicture.cs" />
+    <Compile Include="Domain\HGFamilyMembers\FamilyMemberPicture.cs" />
     <Compile Include="Extensions\AttributeParserHelper.cs" />
     <Compile Include="Extensions\ControllerExtensions.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
@@ -276,11 +280,11 @@
     <Compile Include="Infrastructure\Installation\InstallationLanguage.cs" />
     <Compile Include="Infrastructure\Installation\InstallationLocalizationService.cs" />
     <Compile Include="Infrastructure\RouteProvider.cs" />
-    <Compile Include="Mapping\HGFamilyMemberPictureMap.cs" />
-    <Compile Include="Mapping\HGFamilyMemberMap.cs" />
+    <Compile Include="Mapping\FamilyMembes\FamilyMemberRelationMap.cs" />
+    <Compile Include="Mapping\FamilyMembes\FamilyMemberPictureMap.cs" />
+    <Compile Include="Mapping\FamilyMembes\FamilyMemberMap.cs" />
     <Compile Include="Mapping\HGTestMap.cs" />
     <Compile Include="Mapping\HGPedigreeMetaMap.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Boards\ActiveDiscussionsModel.cs" />
     <Compile Include="Models\Boards\BoardsIndexModel.cs" />
     <Compile Include="Models\Boards\CustomerForumSubscriptionsModel.cs" />
@@ -314,23 +318,23 @@
     <Compile Include="Models\Common\StoreThemeModel.cs" />
     <Compile Include="Models\Common\StoreThemeSelectorModel.cs" />
     <Compile Include="Models\Common\TaxTypeSelectorModel.cs" />
-    <Compile Include="Models\HGFamilyMember\HGFamilyMemberDetailsModel.cs" />
-    <Compile Include="Models\HGFamilyMember\HGFamilyMemberOverviewModel.cs" />
+    <Compile Include="Models\HGFamilyMembers\FamilyMemberDetailsModel.cs" />
+    <Compile Include="Models\HGFamilyMembers\FamilyMemberModel.cs" />
+    <Compile Include="Models\HGFamilyMembers\FamilyMemberOverviewModel.cs" />
     <Compile Include="Models\HGPedigree\HGTestModel.cs" />
     <Compile Include="Models\HGPedigree\HGPedigreePagingFilteringModel.cs" />
     <Compile Include="Models\HGPedigree\HGPedigreeMetaModel.cs" />
     <Compile Include="Models\HGPedigree\HGPedigreeNavigationModel.cs" />
     <Compile Include="Models\HGPedigree\HGPedigreeSimpleModel.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Install\InstallModel.cs" />
     <Compile Include="Models\Media\PictureModel.cs" />
     <Compile Include="Models\Topics\TopicModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\HGFamilyMemberService.cs" />
+    <Compile Include="Services\HGFamilyMembers\FamilyMemberService.cs" />
     <Compile Include="Services\HGServiceRegistrar.cs" />
     <Compile Include="Services\HGTestService.cs" />
     <Compile Include="Services\HGPedigreeMetaService.cs" />
-    <Compile Include="Services\Interfaces\IHGFamilyMemberService.cs" />
+    <Compile Include="Services\HGFamilyMembers\IFamilyMemberService.cs" />
     <Compile Include="Services\Interfaces\IHGTestService.cs" />
     <Compile Include="Services\Interfaces\IHGPedigreeMetaService.cs" />
     <Compile Include="Validators\Boards\EditForumPostValidator.cs" />
@@ -477,6 +481,14 @@
     <Content Include="Content\samples\product_TabletCover.jpeg" />
     <Content Include="Content\samples\product_Windows8.jpeg" />
     <Content Include="Content\samples\product_WomenTShirt.jpg" />
+    <Content Include="Data\SQL\Tables\%28A001%29tbHGPedigreeMeta.sql" />
+    <Content Include="Data\SQL\Tables\%28A030%29tbHGAddress.sql" />
+    <Content Include="Data\SQL\Tables\%28A030%29tbHGFamilyMember.sql" />
+    <Content Include="Data\SQL\Tables\%28A032%29tbHGFamilyMemberInfo.sql" />
+    <Content Include="Data\SQL\Tables\%28B002%29tbHGFamilyMemberRelation.sql" />
+    <Content Include="Data\SQL\Tables\%28B001%29tbHGFamilyMember_Picture_Mapping.sql" />
+    <Content Include="Data\SQL\Tables\FromNopDatabase\Picture.sql" />
+    <Content Include="Data\SQL\Tables\Temp\族譜 SCRIPT.sql" />
     <Content Include="favicon.ico" />
     <Content Include="FileNotFound.htm" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1158,14 +1170,19 @@
     <Content Include="Views\Common\TaxTypeSelector.cshtml" />
     <Content Include="Views\HGPedigree\Index.cshtml" />
     <Content Include="Views\Shared\HGTopMenu.cshtml" />
-    <Content Include="Views\HGFamilyMember\OverView.cshtml" />
+    <Content Include="Views\HGFamilyMembers\OverView.cshtml" />
     <Content Include="Views\Shared\_FamilyMemberBox.cshtml" />
-    <Content Include="Views\HGFamilyMember\FamilyMemberDetails.cshtml" />
+    <Content Include="Views\HGFamilyMembers\FamilyMemberDetails.cshtml" />
+    <Content Include="Views\HGFamilyMembers\Create.cshtml" />
+    <Content Include="Views\HGFamilyMembers\_FamilyMemberBreadcrumb.cshtml" />
+    <Content Include="Views\HGFamilyMembers\_FamilyMemberDetailsPictures.cshtml" />
+    <Content Include="Views\HGFamilyMembers\RelatedFamilyMembers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Services\Configuration\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1209,7 +1226,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50450</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50450/</IISUrl>
+          <IISUrl>http://localhost:50451/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

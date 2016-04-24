@@ -22,14 +22,29 @@ GO
 CREATE TABLE HGFamilyMember
 (
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[FamilyName] [nvarchar](30) NOT NULL	--姓
+	[FamilyName] [nvarchar](30) NOT NULL --姓
 		CONSTRAINT DF_HGFamilyMember_FamilyName DEFAULT '',
 	[GivenName] [nvarchar](50) NOT NULL	--名
 		CONSTRAINT DF_HGFamilyMember_GivenName DEFAULT '',
 	[Description] [nvarchar](Max) NOT NULL
-		CONSTRAINT DF_HGFamilyMember_Description DEFAULT '',
-	[PictureId] [int] NOT NULL
-		CONSTRAINT DF_HGFamilyMember_PictureId DEFAULT 0,
+		CONSTRAINT DF_HGFamilyMember_Description DEFAULT '',	
+	[FatherMemberId] [int] NOT NULL	--父
+		CONSTRAINT DF_HGFamilyMember_FatherMemberId DEFAULT 0,
+	[MotherMemberId] [int] NOT NULL	--母
+		CONSTRAINT DF_HGFamilyMember_MotherMemberId DEFAULT 0,
+	[BirthDay] [date] NULL, --生日
+	[CurrentAddressId] [int] NOT NULL --目前居住地址編號
+		CONSTRAINT DF_HGFamilyMember_CurrentAddressId DEFAULT 0,
+	[Email] [nvarchar](500) NOT NULL --Email
+		CONSTRAINT DF_HGFamilyMember_Email DEFAULT '',
+	[MobilePhone] [nvarchar](30) NOT NULL --手機號碼
+		CONSTRAINT DF_HGFamilyMember_MobilePhone DEFAULT '',
+	[Gender] [nvarchar](1) NOT NULL --性別
+		CONSTRAINT DF_HGFamilyMember_Gender DEFAULT '',
+	[GenerationNo] [int] NOT NULL --世代
+		CONSTRAINT DF_HGFamilyMember_GenerationNo DEFAULT 0,
+	[JobDescription] [nvarchar](Max) NOT NULL --工作職業
+		CONSTRAINT DF_HGFamilyMember_JobDescription DEFAULT '',
 	[IsPublic] [bit] NOT NULL				--是否公開
 		CONSTRAINT DF_HGFamilyMember_IsPublic DEFAULT 0,	
 	[IsPublished] [bit] NOT NULL			--是否發佈

@@ -13,6 +13,7 @@ using Nop.Core.Data;
 using HGenealogy.Domain;
 using Nop.Core.Configuration;
 using System;
+using HGenealogy.Services.HGFamilyMembers;
 
 namespace HGenealogy.Services
 {
@@ -24,7 +25,7 @@ namespace HGenealogy.Services
             builder.RegisterType<InstallationLocalizationService>().As<IInstallationLocalizationService>().InstancePerLifetimeScope();
             builder.RegisterType<HGPedigreeMetaService>().As<IHGPedigreeMetaService>().InstancePerLifetimeScope();
             builder.RegisterType<HGTestService>().As<IHGTestService>().InstancePerLifetimeScope();
-            builder.RegisterType<HGFamilyMemberService>().As<IHGFamilyMemberService>().InstancePerLifetimeScope();
+            builder.RegisterType<FamilyMemberService>().As<IFamilyMemberService>().InstancePerLifetimeScope();
 
         }
     }

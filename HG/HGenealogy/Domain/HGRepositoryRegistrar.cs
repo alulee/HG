@@ -1,3 +1,4 @@
+using System;
 using System.Data.Entity;
 using Autofac;
 using Autofac.Core;
@@ -5,14 +6,15 @@ using Nop.Core.Caching;
 using Nop.Core.Infrastructure;
 using Nop.Core.Infrastructure.DependencyManagement;
 using Nop.Web.Framework.Mvc;
+using Nop.Core.Configuration;
+using Nop.Data;
+using Nop.Core.Data;
 using HGenealogy.Data;
 using HGenealogy.Controllers;
 using HGenealogy.Infrastructure.Installation;
-using Nop.Data;
-using Nop.Core.Data;
-using HGenealogy.Domain;
-using Nop.Core.Configuration;
-using System;
+using HGenealogy.Domain.HGFamilyMembers;
+using Nop.Core.Domain.Media;
+
 
 namespace HGenealogy.Domain
 {
@@ -31,13 +33,18 @@ namespace HGenealogy.Domain
                 .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_context_hgenealogy"))
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<EfRepository<HGFamilyMember>>()
-                .As<IRepository<HGFamilyMember>>()
+            builder.RegisterType<EfRepository<FamilyMember>>()
+                .As<IRepository<FamilyMember>>()
                 .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_context_hgenealogy"))
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<EfRepository<HGFamilyMemberPicture>>()
-                .As<IRepository<HGFamilyMemberPicture>>()
+            builder.RegisterType<EfRepository<FamilyMemberPicture>>()
+                .As<IRepository<FamilyMemberPicture>>()
+                .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_context_hgenealogy"))
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<EfRepository<FamilyMemberRelation>>()
+                .As<IRepository<FamilyMemberRelation>>()
                 .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_context_hgenealogy"))
                 .InstancePerLifetimeScope();
         }
