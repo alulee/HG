@@ -1,0 +1,26 @@
+﻿@model FamilyMemberDetailsModel.FamilyMemberBreadcrumbModel
+@using Nop.Core.Domain.Common;
+@using Nop.Core.Infrastructure;
+@using HGenealogy.Models.HGFamilyMembers;
+@{
+    var breadcrumbDelimiter = EngineContext.Current.Resolve<CommonSettings>().BreadcrumbDelimiter;
+}
+@if (Model.Enabled)
+{
+    <div class="breadcrumb">
+        <ul>
+            <li>
+                <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="@Url.RouteUrl("HomePage")" itemprop="url">
+                        <span itemprop="title">@T("HomePage")</span>
+                    </a>
+                </span>
+                <span class="delimiter">@breadcrumbDelimiter</span>
+            </li>
+            
+            <li>
+                <strong class="current-item">@Model.FamilyMemberName</strong>
+            </li>
+        </ul>
+    </div>     
+}
