@@ -17,6 +17,8 @@ using HGenealogy.Domain.HGFamilyMembers;
 using HGenealogy.Domain;
 using AutoMapper;
 using HGenealogy.Models.HGPedigree;
+using HGenealogy.Models.HGPedigreeInfo;
+
 namespace HGenealogy.Extensions
 {
     public static class MappingExtensions
@@ -31,7 +33,8 @@ namespace HGenealogy.Extensions
         {
             return Mapper.Map(source, destination);
         }
-        public static HGFamilyMemberDetailsModel ToDetailsModel(this HGFamilyMember entity)
+
+        public static FamilyMemberDetailsModel ToDetailsModel(this FamilyMember entity)
         {
             if (entity == null)
                 return null;

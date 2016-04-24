@@ -8,6 +8,7 @@ using HGenealogy.Models.HGPedigree;
 using HGenealogy.Domain;
 using HGenealogy.Extensions;
 using AutoMapper;
+using HGenealogy.Models.HGPedigreeInfo;
 
 namespace HGenealogy.Controllers
 {

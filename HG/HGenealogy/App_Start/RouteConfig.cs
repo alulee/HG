@@ -14,8 +14,12 @@ namespace HGenealogy
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("favicon.ico");
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");                        
+
+            //register custom routes (plugins, etc)
+            var routePublisher = EngineContext.Current.Resolve<IRoutePublisher>();
+            routePublisher.RegisterRoutes(routes);
+
             //todo:一直無法正確解析,這段先移到上面
             routes.MapRoute(
                 "Default", // Route name
@@ -23,10 +27,6 @@ namespace HGenealogy
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 new[] { "HGenealogy.Controllers" }
             );
-
-            //register custom routes (plugins, etc)
-            var routePublisher = EngineContext.Current.Resolve<IRoutePublisher>();
-            routePublisher.RegisterRoutes(routes);
 
 
         }

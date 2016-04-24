@@ -262,6 +262,8 @@
     <Compile Include="Domain\HGFamilyMembers\FamilyMemberRelation.cs" />
     <Compile Include="Domain\HGFamilyMembers\FamilyMemberSettings.cs" />
     <Compile Include="Domain\HGFamilyMembers\FamilyMember.cs" />
+    <Compile Include="Domain\HGPedigreeEvent.cs" />
+    <Compile Include="Domain\HGPedigreeInfo.cs" />
     <Compile Include="Domain\HGRepositoryRegistrar.cs" />
     <Compile Include="Domain\HGTest.cs" />
     <Compile Include="Domain\HGPedigreeMeta.cs" />
@@ -325,6 +327,8 @@
     <Compile Include="Models\HGFamilyMembers\FamilyMemberDetailsModel.cs" />
     <Compile Include="Models\HGFamilyMembers\FamilyMemberModel.cs" />
     <Compile Include="Models\HGFamilyMembers\FamilyMemberOverviewModel.cs" />
+    <Compile Include="Models\HGPedigreeInfo\HGPedigreeInfoModel.cs" />
+    <Compile Include="Models\HGPedigreeMeta\HGPedigreeMetaModel.cs" />
     <Compile Include="Models\HGPedigree\HGTestModel.cs" />
     <Compile Include="Models\HGPedigree\HGPedigreePagingFilteringModel.cs" />
     <Compile Include="Models\HGPedigree\HGPedigreeMetaModel.cs" />
