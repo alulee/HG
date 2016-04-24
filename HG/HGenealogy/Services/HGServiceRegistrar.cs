@@ -25,6 +25,7 @@ namespace HGenealogy.Services
             builder.RegisterType<HGPedigreeMetaService>().As<IHGPedigreeMetaService>().InstancePerLifetimeScope();
             builder.RegisterType<HGTestService>().As<IHGTestService>().InstancePerLifetimeScope();
             builder.RegisterType<HGFamilyMemberService>().As<IHGFamilyMemberService>().InstancePerLifetimeScope();
+            builder.RegisterType<HGPedigreeInfoService>().As<IHGPedigreeInfoService>().InstancePerLifetimeScope();
 
         }
     }

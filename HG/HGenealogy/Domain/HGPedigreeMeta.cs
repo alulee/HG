@@ -12,41 +12,30 @@ namespace HGenealogy.Domain
     /// Represents a HGPedigreeMeta
     /// </summary>
     public partial class HGPedigreeMeta : BaseEntity, ILocalizedEntity, ISlugSupported
-    {       
-        /// <summary>
-        /// Gets or sets the Title
-        /// </summary>
+    {
         public string Title { get; set; }
-
-        /// <summary>
-        /// Gets or sets the FamilyName
-        /// </summary>
+        public string Editor { get; set; }
+        public string Description { get; set; }
+        public byte[] Image { get; set; }
+        public DateTime PublishDate { get; set; }
+        public int Volumes { get; set; }
+        public int Pages { get; set; }
         public string FamilyName { get; set; }
-
-
-        /// <summary>
-        /// Gets or sets the IsPublic
-        /// </summary>
+        public string OriginalAncestor { get; set; }
+        public string DateMoveToTaiwan { get; set; }
+        public string AncestorToTaiwan { get; set; }
+        public string OriginalAddress { get; set; }
+        public int TotalGenerations { get; set; }
+        public int GenerationToTaiwan { get; set; }
+        public string LivingAreaInTaiwan { get; set; }
+        public string OriginalCollector { get; set; }
+        public string ContentNotes { get; set; }
+        public string TangName { get; set; }
         public bool IsPublic { get; set; }
- 
-        /// <summary>
-        /// Gets or sets a value indicating whether the entity is published
-        /// </summary>
-        public bool IsPublished { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the entity has been deleted
-        /// </summary>
-        public bool IsDeleted { get; set; }
- 
-        /// <summary>
-        /// Gets or sets the date and time of instance creation
-        /// </summary>
         public DateTime CreatedOnUtc { get; set; }
+        public DateTime UpdatedOnUtc { get; set; }
+        public string CreatedWho { get; set; }
+        public string UpdatedWho { get; set; }
 
-        /// <summary>
-        /// Gets or sets the date and time of instance update
-        /// </summary>
-        public DateTime UpdatedOnUtc { get; set; }    
     }
 }

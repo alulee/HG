@@ -26,6 +26,11 @@ namespace HGenealogy.Domain
                 .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_context_hgenealogy"))
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<EfRepository<HGPedigreeInfo>>()
+                .As<IRepository<HGPedigreeInfo>>()
+                .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_context_hgenealogy"))
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<EfRepository<HGPedigreeMeta>>()
                 .As<IRepository<HGPedigreeMeta>>()
                 .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_context_hgenealogy"))
