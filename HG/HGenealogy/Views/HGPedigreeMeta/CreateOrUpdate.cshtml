@@ -1,8 +1,14 @@
 ﻿@using HGenealogy.Models.HGPedigree
 @model HGPedigreeMetaModel
-
 @{
     Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+}
+@{
+    //resources for product tags input
+    Html.AppendCssFileParts("~/Content/tagit/jquery.tagit.css");
+    Html.AppendScriptParts("~/Scripts/tag-it.min.js");
+    var kendoVersion = "2014.1.318";
+    Html.AppendScriptParts(string.Format("~/Scripts/kendo/{0}/kendo.web.min.js", kendoVersion));
 }
 
 <style type="text/css">
@@ -107,31 +113,31 @@
                             @Html.TextBoxFor(model => model.AncestorToTaiwan, new { @id = "OriginalAddress" })
                         </div>
                         <div class="inputs">
-                            <label for="TotalGenerations" class="col-md-2 control-label">世代數</label>
+                            <label for="TotalGenerations" >世代數</label>
                             @Html.TextBoxFor(model => model.TotalGenerations, new { @id = "TotalGenerations" })
                         </div>
                         <div class="inputs">
-                            <label for="GenerationToTaiwan" class="col-md-2 control-label">入臺世代</label>
+                            <label for="GenerationToTaiwan" >入臺世代</label>
                             @Html.TextBoxFor(model => model.GenerationToTaiwan, new { @id = "GenerationToTaiwan" })
                         </div>
                         <div class="inputs">
-                            <label for="LivingAreaInTaiwan" class="col-md-2 control-label">入臺包含地區</label>
+                            <label for="LivingAreaInTaiwan" >入臺包含地區</label>
                             @Html.TextBoxFor(model => model.LivingAreaInTaiwan, new { @id = "LivingAreaInTaiwan" })
                         </div>
                         <div class="inputs">
-                            <label for="OriginalCollector" class="col-md-2 control-label">原件珍藏者(單位)</label>
+                            <label for="OriginalCollector" >原件珍藏者(單位)</label>
                             @Html.TextBoxFor(model => model.OriginalCollector, new { @id = "OriginalCollector" })
                         </div>
                         <div class="inputs">
-                            <label for="ContentNotes" class="col-md-2 control-label">附註</label>
-                            @Html.TextAreaFor(model => model.ContentNotes, new { @id = "ContentNotes" })
+                            <label for="ContentNotes" >附註</label>
+                            @Html.EditorFor(model => model.ContentNotes, "RichEditor")
                         </div>
                         <div class="inputs">
-                            <label for="TangName" class="col-md-2 control-label">堂號</label>
+                            <label for="TangName" >堂號</label>
                             @Html.TextBoxFor(model => model.TangName, new { @id = "TangName" })
                         </div>
                         <div class="inputs">
-                            <label for="IsPublic" class="col-md-2 control-label">是否公開</label>
+                            <label for="IsPublic" >是否公開</label>
                             @Html.CheckBoxFor(model => model.IsPublic, new { @id = "IsPublic" })
                         </div>
                     </div>
