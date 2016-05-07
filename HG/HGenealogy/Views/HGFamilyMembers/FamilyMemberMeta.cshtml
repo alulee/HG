@@ -1,0 +1,69 @@
+﻿@model FamilyMemberModel
+@using HGenealogy.Models.HGFamilyMembers
+@using HGenealogy.Services
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(T("家族成員資料").Text);
+}
+
+@section left
+{
+    @*@Html.Partial("_FamilyMembeInfoNavigation", Model.FamilyMemberInfoNavigationModel)*@
+    @Html.Action("FamilyMemberInfoNavigation", "HGFamilyMembers", new { selectedTabId = FamilyMemberInfoNavigationEnum.Biography, familymemberId = Model.Id })
+}
+
+<div class="page familymemberdetail-page meta-page" id="familymemberinfoResults">
+
+    <div class="page-title">
+        <h1>家族成員資料</h1>
+    </div>
+
+    <div class="page-body">
+
+        @using (Html.BeginForm())
+        {
+        @Html.AntiForgeryToken()
+        }
+
+        <div class="fieldset">
+            <div class="title">
+                @*<strong>@T("Account.YourPersonalDetails")</strong>*@
+                <strong>@Model.FamilyName @Model.GivenName @T("基本資料")</strong>
+            </div>
+
+            <div class="form-fields">
+                <div class="inputs">
+                    @Html.LabelFor(model => model.FamilyName, new { }, ":")
+                    @Html.EditorFor(model => model.FamilyName)
+                    @Html.RequiredHint()
+                    @Html.ValidationMessageFor(model => model.FamilyName)
+                </div>
+
+                <div class="inputs">
+                    @Html.LabelFor(model => model.GivenName, new { }, ":")
+                    @Html.EditorFor(model => model.GivenName)
+                    @Html.RequiredHint()
+                    @Html.ValidationMessageFor(model => model.GivenName)
+                </div>
+
+                <div class="inputs">
+                    <label>@T("性別"):</label>
+                    <div class="gender">
+                        <span class="male">
+                            @Html.RadioButton("Gender", "M", (Model.Gender == "M"), new { id = "gender-male" })
+                            <label class="forcheckbox" for="gender-male">@T("男")</label>
+                        </span>
+                        <span class="female">
+                            @Html.RadioButton("Gender", "F", (Model.Gender == "F"), new { id = "gender-female" })
+                            <label class="forcheckbox" for="gender-female">@T("女")</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

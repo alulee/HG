@@ -1,0 +1,40 @@
+﻿@model FamilyMemberInfoNavigationModel           
+@using HGenealogy.Models.HGFamilyMembers;
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".infolist").click(function () {
+            var familyinfotype = ($(this).attr("id"));            
+            var familyid = @Model.CurrentFamilyMemberId.ToString();
+            $("#familymemberinfoResults").load('@(Url.Action("", "FamilyMemberInfo", null, Request.Url.Scheme))?selectedTabId=' + familyinfotype + '&familymemberid=' + familyid);
+        });
+    });
+</script>
+
+<div class="block block-account-navigation">
+    <div class="title">
+        <strong>@T("家族成員資訊")</strong>
+    </div>
+    <div class="listbox">
+        <ul class="list">
+            <li>
+                <a class="infolist @if (Model.SelectedTab == FamilyMemberInfoNavigationEnum.PersonalDetails)
+                                    { <text> active</text>} else {<text>inactive</text>}" 
+                   id="@FamilyMemberInfoNavigationEnum.PersonalDetails">@T("個人基本資料")</a>
+
+            </li>
+            <li>
+                <a class="infolist @if (Model.SelectedTab == FamilyMemberInfoNavigationEnum.Biography)
+                                    { <text> active</text>} else {<text>inactive</text>}" 
+                   id="@FamilyMemberInfoNavigationEnum.Biography">@T("個人傳記")</a>
+            </li>
+            <li>
+                <a class="infolist @if (Model.SelectedTab == FamilyMemberInfoNavigationEnum.Event)
+                                    { <text> active</text>} else {<text>inactive</text>}"
+                    id="@FamilyMemberInfoNavigationEnum.Event">@T("重要事件")</a>
+            </li>                 
+        </ul>
+
+    </div>
+</div>

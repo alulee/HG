@@ -1,0 +1,28 @@
+﻿@model FamilyMemberInfoNavigationModel
+@using HGenealogy.Models.HGFamilyMembers;
+ 
+<div class="page familymemberinfo-list-page" id="familymemberinfoResults">
+    <div class="page-title">
+        <strong>@Model.SelectedInfoTypeTitle</strong>
+    </div>
+
+    <div class="page-body">
+        @for (int i = 0; i < Model.FamilyMemberInfosByInfoType.Count; i++)
+        {
+            var familymemberinfo = Model.FamilyMemberInfosByInfoType[i];
+            <div class="familymemberinfo-item">
+                <div class="familymemberinfo-title title">
+                    <strong>@T(familymemberinfo.InfoTitle)</strong>
+                </div>
+
+                <div class="info familymemberinfo-content">
+                    @Html.Raw(familymemberinfo.InfoContent)
+                </div>
+                <div class="buttons">
+                    <input type="button" class="button-2 edit-familymemberinfo-button" onclick="location.href='@(Url.RouteUrl("FamilyMemberInfo", new { familymemberinfoid = familymemberinfo.Id }))'" value='@T("Common.Edit")' />
+                    <input type="button" class="button-2 delete-familymemberinfo-button" onclick="if (confirm('@(T("Common.AreYouSure").Text)')) {location.href='@(Url.RouteUrl("FamilyMemberInfo", new { familymemberinfoid = familymemberinfo.Id }))';}" value="@T("Common.Delete")" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
