@@ -14,6 +14,7 @@ using HGenealogy.Controllers;
 using HGenealogy.Infrastructure.Installation;
 using HGenealogy.Domain.HGFamilyMembers;
 using Nop.Core.Domain.Media;
+using HGenealogy.Domain.Common;
 
 
 namespace HGenealogy.Domain
@@ -50,6 +51,16 @@ namespace HGenealogy.Domain
 
             builder.RegisterType<EfRepository<FamilyMemberRelation>>()
                 .As<IRepository<FamilyMemberRelation>>()
+                .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_context_hgenealogy"))
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<EfRepository<FamilyMemberInfo>>()
+                .As<IRepository<FamilyMemberInfo>>()
+                .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_context_hgenealogy"))
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<EfRepository<HGAddress>>()
+                .As<IRepository<HGAddress>>()
                 .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_context_hgenealogy"))
                 .InstancePerLifetimeScope();
         }

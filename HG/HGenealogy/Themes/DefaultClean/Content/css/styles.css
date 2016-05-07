@@ -6539,4 +6539,45 @@ pre {
 	font-size: 30px;
     font-weight: normal;
 }
- 
+
+.familymemberdetail-page .button-1,
+.return-request-page .button-1 {
+	min-width: 140px;
+	border: none;
+	background-color: #4ab2f1;
+    padding: 10px 30px;
+	text-align: center;
+	font-size: 15px;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.familymemberdetail-page .button-1:hover,
+.return-request-page .button-1:hover {
+	background-color: #248ece;
+}
+
+.familymemberdetail-page .message-error {
+	margin: 0 0 10px;
+}
+
+.familymemberdetail-page .buttons {
+	text-align: center;
+}
+.familymemberdetail-page .description {
+	margin: 0 0 25px;
+	padding: 0 10px;
+}
+.familymemberdetail-page .table-wrapper {
+	margin: 0 0 30px
+}
+
+.familymemberinfo-item {
+	position: relative;
+}
+
+.familymemberinfo-list .buttons {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+}

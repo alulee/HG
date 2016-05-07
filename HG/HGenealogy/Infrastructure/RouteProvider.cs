@@ -10,24 +10,23 @@ namespace HGenealogy.Infrastructure
         public void RegisterRoutes(RouteCollection routes)
         {
             //We reordered our routes so the most used ones are on top. It can improve performance.
-
+            
             //home page
             routes.MapLocalizedRoute("HomePage",
                             "HomePage",
                             new { controller = "Home", action = "Index" },
                             new[] { "HGenealogy.Controllers" });
 
-            //HGPedigree
+            #region  HGPedigree
+            
             routes.MapLocalizedRoute("HGPedigree",
                             "HGPedigree",
                             new { controller = "HGPedigree", action = "Index" },
                             new[] { "HGenealogy.Controllers" });
 
-            //HGFamilyMember
-            routes.MapLocalizedRoute("FamilyMember",
-                            "FamilyMember",
-                            new { controller = "HGFamilyMembers", action = "Index" },
-                            new[] { "HGenealogy.Controllers" });
+            #endregion
+
+            #region HGFamilyMember
 
             routes.MapLocalizedRoute("FamilyMemberCreate",
                             "FamilyMemberCreate",
@@ -39,15 +38,38 @@ namespace HGenealogy.Infrastructure
                             new { controller = "HGFamilyMembers", action = "Overview" },
                             new[] { "HGenealogy.Controllers" });
 
-            routes.MapLocalizedRoute("FamilyMemberDetails",
-                            "FamilyMemberDetails",
-                            new { controller = "HGFamilyMembers", action = "FamilyMemberDetails" },
+            routes.MapLocalizedRoute("FamilyMemberDetail",
+                            "FamilyMemberDetail",
+                            new { controller = "HGFamilyMembers", action = "FamilyMemberDetail" },
                             new[] { "HGenealogy.Controllers" });
+
+            routes.MapLocalizedRoute("FamilyMember",
+                "FamilyMember",
+                new { controller = "HGFamilyMembers", action = "FamilyMemberMeta" },
+                new[] { "HGenealogy.Controllers" });
+
+            routes.MapLocalizedRoute("FamilyMemberInfo",
+                 "FamilyMemberInfo",
+                 new { controller = "HGFamilyMembers", action = "FamilyMemberInfo" },
+                 new[] { "HGenealogy.Controllers" });
+
+            routes.MapLocalizedRoute("FamilyMemberInfoBiography",
+                 "FamilyMemberInfoBiography",
+                 new { controller = "HGFamilyMembers", action = "FamilyMemberInfoBiography" },
+                 new[] { "HGenealogy.Controllers" });
+
+            routes.MapLocalizedRoute("FamilyMemberInfoEvent",
+                 "FamilyMemberInfoEvent",
+                 new { controller = "HGFamilyMembers", action = "FamilyMemberInfoEvent" },
+                 new[] { "HGenealogy.Controllers" });
 
             routes.MapLocalizedRoute("RelatedFamilyMembers",
                             "RelatedFamilyMembers",
                             new { controller = "HGFamilyMembers", action = "RelatedFamilyMembers" },
                             new[] { "HGenealogy.Controllers" });
+            
+            #endregion
+
 
             //HGTest
             routes.MapLocalizedRoute("HGTest",
@@ -708,6 +730,13 @@ namespace HGenealogy.Infrastructure
             //                "storeclosed",
             //                new { controller = "Common", action = "StoreClosed" },
             //                new[] { "Nop.Web.Controllers" });
+
+            routes.MapRoute(
+                "Default", // Route name
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                new[] { "HGenealogy.Controllers" }
+            );
 
             //install
             routes.MapRoute("Installation",

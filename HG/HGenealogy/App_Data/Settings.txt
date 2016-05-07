@@ -1,3 +1,3 @@
 DataProvider: sqlserver
-DataConnectionString: Data Source=.;Initial Catalog=nop;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=1234
+DataConnectionString: Data Source=.;Initial Catalog=nop3.7hg;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=sql
 DataConnectionString11: Data Source=10.40.10.157;Initial Catalog=nop;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=yr@89898859

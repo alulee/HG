@@ -49,5 +49,14 @@ namespace HGenealogy.Services.HGFamilyMembers
         /// <param name="familyMemberIds"></param>
         /// <returns>FamilyMembers</returns>
         IList<FamilyMember> GetFamilyMembersByIds(int[] familyMemberIds);
+
+        /// <summary>
+        /// 以 familyMemberId 取得成員延申資訊
+        /// </summary>
+        /// <param name="familyMemberId"></param>
+        /// <param name="infoType"></param>
+        /// <returns></returns>
+        IList<FamilyMemberInfo> GetFamilyMemberInfoByMemberId(int familyMemberId, string infoType);
+    
     }
 }

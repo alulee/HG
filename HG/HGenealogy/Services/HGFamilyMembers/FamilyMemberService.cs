@@ -47,6 +47,7 @@ namespace HGenealogy.Services.HGFamilyMembers
         private readonly IRepository<FamilyMember> _familyMemberRepository;
         private readonly IRepository<FamilyMemberPicture> _familyMemberPictureRepository;
         private readonly IRepository<FamilyMemberRelation> _familyMemberRelationRepository;
+        private readonly IRepository<FamilyMemberInfo> _familyMemberInfoRepository;
         private readonly IRepository<Picture> _pictureRepository;
         private readonly IRepository<AclRecord> _aclRepository;
         private readonly IWorkContext _workContext;
@@ -68,6 +69,7 @@ namespace HGenealogy.Services.HGFamilyMembers
             IRepository<FamilyMember> hgFamilyMemberRepository,
             IRepository<FamilyMemberPicture> familyMemberPictureRepository,
             IRepository<FamilyMemberRelation> familyMemberRelationRepository,
+            IRepository<FamilyMemberInfo> familyMemberInfoRepository,
             IRepository<Picture> pictureRepository,
             IRepository<AclRecord> aclRepository,
             IWorkContext workContext,
@@ -77,6 +79,7 @@ namespace HGenealogy.Services.HGFamilyMembers
             this._familyMemberRepository = hgFamilyMemberRepository;
             this._familyMemberPictureRepository = familyMemberPictureRepository;
             this._familyMemberRelationRepository = familyMemberRelationRepository;
+            this._familyMemberInfoRepository = familyMemberInfoRepository;
             this._pictureRepository = pictureRepository;
             this._aclRepository = aclRepository;
             this._workContext = workContext;
@@ -214,6 +217,25 @@ namespace HGenealogy.Services.HGFamilyMembers
 
         }
 
+
+        /// <summary>
+        /// Gets FamilyMemberInfo By FamilyMemberId
+        /// </summary>
+        /// <param name="FamilyMemberId">familyMemberId</param>
+        /// <returns>List<FamilyMemberInfo></returns>
+        public virtual IList<FamilyMemberInfo> GetFamilyMemberInfoByMemberId(int familyMemberId, string infoType)
+        {
+            if (familyMemberId == 0)
+                return null;
+
+            var query = from p in this._familyMemberInfoRepository.Table
+                        where p.FamilyMemberId == familyMemberId && p.InfoType == infoType
+                        select p;
+
+            var infos = query.ToList();
+            return infos;
+
+        }
         #endregion
     }
 }

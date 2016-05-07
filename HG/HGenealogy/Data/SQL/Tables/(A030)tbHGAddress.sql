@@ -46,9 +46,6 @@ CREATE TABLE HGAddress
 	[Latitude] decimal(28,6) NULL, --地址緯度  
 	[CustomAttributes] nvarchar(max) NULL
 		CONSTRAINT DF_HGAddress_CustomAttributes DEFAULT '',
-
-	[IsPublic] bit NOT NULL				--是否公開
-		CONSTRAINT DF_HGAddress_IsPublic DEFAULT 0,	
 	[IsDeleted] bit NOT NULL				--是否刪除
 		CONSTRAINT DF_HGAddress_IsDeleted DEFAULT 0,
 	[DisplayOrder] int NOT NULL

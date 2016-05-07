@@ -21,12 +21,12 @@ namespace HGenealogy
             routePublisher.RegisterRoutes(routes);
 
             //todo:一直無法正確解析,這段先移到上面
-            routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                new[] { "HGenealogy.Controllers" }
-            );
+            //routes.MapRoute(
+            //    "Default", // Route name
+            //    "{controller}/{action}/{id}", // URL with parameters
+            //    new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+            //    new[] { "HGenealogy.Controllers" }
+            //);
 
 
         }

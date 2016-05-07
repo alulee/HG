@@ -18,7 +18,33 @@ namespace HGenealogy.Domain.HGFamilyMembers
         /// <summary>
         /// Gets or sets the InfoType
         /// </summary>
-        public int InfoType { get; set; }
+        public string InfoType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the InfoTitle
+        /// </summary>
+        public string InfoTitle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the InfoContent
+        /// </summary>
+        public string InfoContent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Address
+        /// </summary>
+        /// 
+        public string Address { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Longitude
+        /// </summary>
+        public decimal? Longitude { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Latitude
+        /// </summary>
+        public decimal? Latitude { get; set; } 
 
         /// <summary>
         /// Gets or sets the display order

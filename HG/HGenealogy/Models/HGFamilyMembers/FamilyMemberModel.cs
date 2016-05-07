@@ -21,11 +21,11 @@ namespace HGenealogy.Models.HGFamilyMembers
         [NopResourceDisplayName("HG.FamilyMembers.Fields.PictureThumbnailUrl")]
         public string PictureThumbnailUrl { get; set; }
 
-        [NopResourceDisplayName("HG.FamilyMembers.Fields.FamilyName")]
+        [NopResourceDisplayName("姓")]
         [AllowHtml]
         public string FamilyName { get; set; }
 
-        [NopResourceDisplayName("HG.FamilyMembers.Fields.GivenName")]
+        [NopResourceDisplayName("名")]
         [AllowHtml]
         public string GivenName { get; set; }
 
@@ -41,7 +41,7 @@ namespace HGenealogy.Models.HGFamilyMembers
 
         [NopResourceDisplayName("HG.FamilyMembers.Fields.DateOfBirth")]
         [AllowHtml]
-        public string DateOfBirth { get; set; }
+        public string DateOfBirthString { get; set; }
 
         [NopResourceDisplayName("HG.FamilyMembers.Fields.CurrentAddressId")]
         public int CurrentAddressId { get; set; }
@@ -50,7 +50,7 @@ namespace HGenealogy.Models.HGFamilyMembers
         public string Gender { get; set; }
 
         [NopResourceDisplayName("HG.FamilyMembers.Fields.GenerationNo")]
-        public int GenerationNo { get; set; }
+        public string GenerationNo { get; set; }
 
         [NopResourceDisplayName("HG.FamilyMembers.Fields.JobDescription")]
         public string JobDescription { get; set; }
@@ -77,10 +77,13 @@ namespace HGenealogy.Models.HGFamilyMembers
             return dateOfBirth;
         }
 
-        //pictures
-        //public FamilyMemberPictureModel AddPictureModel { get; set; }
-        //public IList<FamilyMemberPictureModel> FamilyMemberPictureModels { get; set; }
+        [NopResourceDisplayName("HG.FamilyMembers.Fields.Email")]
+        public string Email { get; set; }
 
+        [NopResourceDisplayName("HG.FamilyMembers.Fields.MobilePhone")]
+        public string MobilePhone { get; set; }
 
+        [NopResourceDisplayName("HG.FamilyMembers.Fields.FullCurrentAddress")]
+        public string FullCurrentAddress { get; set; }
     }
 }

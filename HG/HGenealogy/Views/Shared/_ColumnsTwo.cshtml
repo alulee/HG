@@ -2,31 +2,21 @@
     Layout = "~/Views/Shared/_Root.cshtml";
 }
 @{
-    //current category ID
-    int currentCategoryId = 0;
-    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
-        Url.RequestContext.RouteData.Values["action"].ToString().Equals("category", StringComparison.InvariantCultureIgnoreCase))
-    {
-        currentCategoryId = Convert.ToInt32(Url.RequestContext.RouteData.Values["categoryId"].ToString());
-    }
-
-
-    //current manufacturer ID
-    int currentManufacturerId = 0;
-    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
-        Url.RequestContext.RouteData.Values["action"].ToString().Equals("manufacturer", StringComparison.InvariantCultureIgnoreCase))
-    {
-        currentManufacturerId = Convert.ToInt32(Url.RequestContext.RouteData.Values["manufacturerId"].ToString());
-    }
-
-
-    //current product ID
-    int currentProductId = 0;
-    if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("product", StringComparison.InvariantCultureIgnoreCase) &&
-        Url.RequestContext.RouteData.Values["action"].ToString().Equals("productdetails", StringComparison.InvariantCultureIgnoreCase))
-    {
-        currentProductId = Convert.ToInt32(Url.RequestContext.RouteData.Values["productId"].ToString());
-    }
+    //current Pedigree ID
+    int currentPedigreeId = 0;
+    //if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+    //    Url.RequestContext.RouteData.Values["action"].ToString().Equals("category", StringComparison.InvariantCultureIgnoreCase))
+    //{
+    //    currentCategoryId = Convert.ToInt32(Url.RequestContext.RouteData.Values["categoryId"].ToString());
+    //}
+ 
+    //current FamilyMember ID
+    //int currentFamilyMemberId = 0;
+    //if (Url.RequestContext.RouteData.Values["controller"].ToString().Equals("HGFamilyMembers", StringComparison.InvariantCultureIgnoreCase) &&
+    //    Url.RequestContext.RouteData.Values["action"].ToString().Equals("FamilyMemberDetail", StringComparison.InvariantCultureIgnoreCase))
+    //{
+    //    currentFamilyMemberId = Convert.ToInt32(Url.RequestContext.RouteData.Values["FamilyMemberId"].ToString());
+    //}
 }
 @if (IsSectionDefined("Breadcrumb"))
 {
@@ -40,20 +30,12 @@
         @RenderSection("left")
     }
     else
-    {
-        @Html.Widget("left_side_column_before")
-        @Html.Action("CategoryNavigation", "Catalog", new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })
-        @Html.Widget("left_side_column_after_category_navigation")
-        @Html.Action("ManufacturerNavigation", "Catalog", new { currentManufacturerId = currentManufacturerId })
-        @Html.Action("VendorNavigation", "Catalog")
-        @Html.Action("RecentlyViewedProductsBlock", "Product", new { productThumbPictureSize = 64 })
-        @Html.Action("PopularProductTags", "Catalog")
-        @Html.Action("PollBlock", "Poll", new { systemKeyword = "LeftColumnPoll" })
-        @Html.Widget("left_side_column_after")
+    {        
+        //@Html.Action("PedigreeNavigation", "HGPedigree", new { currentPedigreeId = currentPedigreeId, currentFamilyMemberId = currentFamilyMemberId })
+        //@Html.Action("RecentlyViewedFamilyMemberBlock", "HGFamilyMember", new { productThumbPictureSize = 64 })
+        //@Html.Action("PopularFamilyMemberTags", "HGFamilyMember")        
     }
 </div>
 <div class="center-2">
-    @Html.Widget("main_column_before")
     @RenderBody()
-    @Html.Widget("main_column_after")
 </div>

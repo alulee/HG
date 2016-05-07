@@ -12,13 +12,13 @@
 }
 <div class="familymember-item" data-familymemberid="@Model.Id">
     <div class="picture">
-        <a href="@Url.RouteUrl("FamilyMemberDetails", new { familymemberid = Model.Id })" title="@Model.DefaultPictureModel.Title">
+        <a href="@Url.RouteUrl("FamilyMember", new { familymemberid = Model.Id })" title="@Model.DefaultPictureModel.Title">
             <img alt="@Model.DefaultPictureModel.AlternateText" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title" />
         </a>
     </div>
     <div class="details">
         <h2 class="product-title">
-            <a href="@Url.RouteUrl("FamilyMemberDetails", new { familymemberid = Model.Id })">@Model.FamilyName  @Model.GivenName</a>
+            <a href="@Url.RouteUrl("FamilyMember", new { familymemberid = Model.Id })">@Model.FamilyName  @Model.GivenName</a>
         </h2>
         <div class="description">
             @Html.Raw(Model.Description)

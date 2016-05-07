@@ -33,12 +33,12 @@ namespace HGenealogy.Extensions
             return Mapper.Map(source, destination);
         }
 
-        public static FamilyMemberDetailsModel ToDetailsModel(this FamilyMember entity)
+        public static FamilyMemberDetailModel ToDetailsModel(this FamilyMember entity)
         {
             if (entity == null)
                 return null;
 
-            var model = new FamilyMemberDetailsModel
+            var model = new FamilyMemberDetailModel
             {
                 Id = entity.Id,
                 GivenName = entity.GetLocalized(x => x.GivenName),

@@ -22,7 +22,7 @@ GO
 CREATE TABLE HGFamilyMemberInfo
 (
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[FamilyMemberId] [nvarchar](30) NOT NULL	--家族成員編號
+	[FamilyMemberId] [int] NOT NULL	--家族成員編號
 		CONSTRAINT DF_HGFamilyMemberInfo_FamilyMemberId DEFAULT 0,
 	[InfoType] [nvarchar](10) NOT NULL	--延伸資料類別
 		CONSTRAINT DF_HGFamilyMemberInfo_InfoType DEFAULT '',
@@ -30,6 +30,10 @@ CREATE TABLE HGFamilyMemberInfo
 		CONSTRAINT DF_HGFamilyMemberInfo_InfoTitle DEFAULT '',
 	[InfoContent] [nvarchar](max) NOT NULL --延伸資料內容
 		CONSTRAINT DF_HGFamilyMemberInfo_InfoContent DEFAULT '',	
+	[Address] nvarchar(Max) NOT NULL --延伸資料相關地址
+		CONSTRAINT DF_HGFamilyMemberInfo_Address DEFAULT '',
+	[Longitude] decimal(28,6) NULL, --延伸資料地址經度 
+	[Latitude] decimal(28,6) NULL, --延伸資料地址緯度 	
 	[DisplayOrder] [int] NOT NULL
 		CONSTRAINT DF_HGFamilyMemberInfo_DisplayOrder DEFAULT 0,
 	[CreatedOnUtc] [datetime2](7) NOT NULL	
