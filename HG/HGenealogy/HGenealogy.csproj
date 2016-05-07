@@ -948,6 +948,7 @@
     <Content Include="Content\samples\product_Windows8.jpeg" />
     <Content Include="Content\samples\product_WomenTShirt.jpg" />
     <Content Include="Content\tagit\jquery.tagit.css" />
+    <Content Include="Content\tinymce\langs\zh_TW.js" />
     <Content Include="Content\tinymce\license.txt" />
     <Content Include="Content\tinymce\plugins\advlist\plugin.min.js" />
     <Content Include="Content\tinymce\plugins\anchor\plugin.min.js" />
@@ -1087,6 +1088,7 @@
     <Content Include="Content\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.ttf" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.woff" />
+    <Content Include="Content\Roxy_Fileman\lang\zh.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\farbtastic.js" />
     <Content Include="Scripts\fineuploader\edit.gif" />
