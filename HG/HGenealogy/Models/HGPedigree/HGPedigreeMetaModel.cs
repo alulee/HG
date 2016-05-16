@@ -15,6 +15,7 @@ namespace HGenealogy.Models.HGPedigree
         public string Editor { get; set; }
         public string Description { get; set; }
         public byte[] Image { get; set; }
+        [UIHint("Date")]
         public DateTime PublishDate { get; set; }
         public int Volumes { get; set; }
 

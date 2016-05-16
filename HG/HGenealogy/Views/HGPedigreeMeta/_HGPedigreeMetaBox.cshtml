@@ -24,18 +24,14 @@
         @*@Html.Raw(Model.Description)*@
     </div>
     <div class="buttons">
-        <input type="button" value="檢視明細" class="button-2 product-box-add-to-cart-button" onclick="showHGPedigreeInfo('@Model.Id ');" />
+        <input type="button" value="檢視明細" class="button-2 product-box-add-to-cart-button"
+               onclick="location.href = '@Url.Action("Index", "HGPedigreeInfo", new { hGPedigreeID = Model.Id })' ;" />
         <input type="button" value="修改" title="bb" class="button-2 add-to-compare-list-button" onclick="doUpdate();" />
         <input type="button" value="刪除" title="cc" class="button-2 add-to-wishlist-button" onclick="doDelete();" />
     </div>
 </div>
 
 <script type="text/javascript">
-    function showHGPedigreeInfo(id)
-    {
-        var url = '@Url.Action("Index", "HGPedigreeInfo", new { hGPedigreeID = "@id" })'
-        location.href = url;
-    }
 
     function doUpdate()
     {

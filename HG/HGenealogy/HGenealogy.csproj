@@ -1620,6 +1620,7 @@
     <Content Include="Scripts\tag-it.js" />
     <Content Include="Scripts\tag-it.min.js" />
     <Content Include="Themes\DefaultClean\Content\css\ie8.css" />
+    <Content Include="Themes\DefaultClean\Content\css\mySite_Allen.css" />
     <Content Include="Themes\DefaultClean\Content\css\print.css" />
     <Content Include="Themes\DefaultClean\Content\css\styles.css" />
     <Content Include="Themes\DefaultClean\Content\css\styles.rtl.css" />

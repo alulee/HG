@@ -234,12 +234,16 @@ namespace HGenealogy.Admin.Controllers
         protected string GetFilesRoot(){
             string ret = GetSetting("FILES_ROOT");
             if (GetSetting("SESSION_PATH_KEY") != "" && _context.Session[GetSetting("SESSION_PATH_KEY")] != null)
-                ret = (string)_context.Session[GetSetting("SESSION_PATH_KEY")];
-        
+                ret = (string)_context.Session[GetSetting("SESSION_PATH_KEY")];  
+
             if(ret == "")
                 ret = _context.Server.MapPath("../Uploads");
             else
+            {
+                //allen test
+                ret += @"/public";
                 ret = FixPath(ret);
+            }
             return ret;
         }
         protected void LoadConf(){

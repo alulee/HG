@@ -1,0 +1,11 @@
+﻿
+.inputs {
+    font-size: 15px;
+}
+
+.inputs .textarea {
+	width: 400px;
+	max-width: 100%;
+	background-color: #fff;
+    display:inline-block;
+}
